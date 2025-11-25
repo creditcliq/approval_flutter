@@ -1,16 +1,74 @@
-# examples
+# CreditChek Approval Flutter Example
 
-A new Flutter project.
+This example app demonstrates how to embed the CreditChek Approval Widget in a
+Flutter project. It loads the secure CreditChek web experience inside a native
+`WebView` so that you can trigger identity, income, credit, or Recova checks
+inside your own app.
 
-## Getting Started
+## Project structure
 
-This project is a starting point for a Flutter application.
+- `lib/main.dart`: boots a tiny demo UI and wires up `ApprovalFlutter.verify`.
+- `lib/approval_flutter.dart`: exposes the `ApprovalConfig` and helpers shipped
+  by the SDK (consumed via a path dependency in `pubspec.yaml`).
 
-A few resources to get you started if this is your first Flutter project:
+## Running the example
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter pub get
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+By default the button on the home screen uses placeholder values. Replace them
+with your live credentials before shipping to production.
+
+## Using the SDK
+
+Add the dependency (path for local testing or git when published):
+
+```yaml
+dependencies:
+  approval_flutter:
+    path: ../.. # or git: https://github.com/creditcliq/approval_flutter_int.git
+```
+
+Then configure and launch the widget:
+
+```dart
+final config = ApprovalConfig(
+  publicKey: 'pk_live_your_key',
+  modules: [
+    ApprovalModule.income,
+    ApprovalModule.credit,
+    ApprovalModule.recova,
+    ApprovalModule.identity,
+  ],
+  incomeForm: 'FORM_ID',
+  onSuccess: (payload) => debugPrint('Session: ${payload['sessionId']}'),
+  onError: (message) => debugPrint('Error: $message'),
+  onTimeout: () => debugPrint('Timed out'),
+  onClose: () => debugPrint('Widget closed'),
+);
+
+await ApprovalFlutter.verify(context: context, config: config);
+```
+
+### Available callbacks
+
+- `onSuccess(Map data)`: Fired when the workflow finishes successfully. Grab the
+  `sessionId` and continue your flow.
+- `onError(String message)`: Triggered for validation or network issues.
+- `onTimeout()`: Optional safeguard if the user stalls.
+- `onClose()`: Called both when the user taps the close icon and when the widget
+  emits an explicit close event.
+
+### Modules you can enable
+
+Pass a subset of `ApprovalModule` values via `modules` to control which product
+surface loads in the widget. If you omit the field, all four modules load by
+default in this order: income, credit, recova, identity.
+
+## Support
+
+Need help integrating? Reach out to the CreditChek team via your assigned
+customer-success channel or email support@creditchek.africa. We are happy to
+review logs, walk through implementation details, or provide updated keys.
