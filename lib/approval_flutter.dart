@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter_config.dart';
 
@@ -17,16 +15,16 @@ class ApprovalFlutter {
   }
 }
 
-enum ApprovalModule { income, credit, recova, identity }
+enum ApprovalModule { income, credit, recova } //identity
 
 class ApprovalConfig {
   final String publicKey;
   final List<ApprovalModule> modules;
-  final String? incomeForm;
   final Function(Map<String, dynamic>)? onSuccess;
   final Function(String)? onError;
   final Function()? onClose;
-  final Function()? onTimeout;
+  // final Function()? onTimeout;
+  // final Map<String, dynamic>? data;
 
   ApprovalConfig({
     required this.publicKey,
@@ -34,29 +32,29 @@ class ApprovalConfig {
       ApprovalModule.income,
       ApprovalModule.credit,
       ApprovalModule.recova,
-      ApprovalModule.identity,
+      // ApprovalModule.identity,
     ],
-    this.incomeForm,
+    // this.data,
     this.onSuccess,
     this.onError,
     this.onClose,
-    this.onTimeout,
+    // this.onTimeout,
   });
 
   String buildUrl() {
     final moduleStr = modules.map((module) => module.name).join(',');
-    log('moduleStr: $moduleStr');
-    var url =
-        'https://securedwidget.creditchek.africa/?'
-        'module=$moduleStr&';
-    url += '&publicKey=$publicKey';
+    var url = 'https://securedwidget.creditchek.africa/?publicKey=$publicKey';
+    url += '&module=$moduleStr';
 
-    if (incomeForm != null && incomeForm!.isNotEmpty) {
-      url += '&incomeForm=$incomeForm';
-    }
-    if (onTimeout != null) {
-      url += '&onTimeout=$onTimeout';
-    }
+    // if (data != null) {
+    //   data!.forEach((key, value) {
+    //     url += '&$key=$value';
+    //   });
+    // }
+
+    // if (onTimeout != null) {
+    //   url += '&onTimeout=$onTimeout';
+    // }
     return url;
   }
 }

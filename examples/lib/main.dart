@@ -28,23 +28,20 @@ class ExampleUsage extends StatelessWidget {
 
   void _startVerification(BuildContext context) {
     final config = ApprovalConfig(
-      publicKey: 'your_public_key_here',
+      publicKey:
+          'vy6LZWI/l/pOc868z8LAgEBCdvsSomPev2TxLqIdlNZIueMM0Agl8G88zxyE65LN',
       //Module: income, credit, recova, identity
       modules: [ApprovalModule.income, ApprovalModule.credit],
-      incomeForm: 'your_income_form_here',
 
+      // incomeForm: 'your_income_form_here',
       onSuccess: (data) {
-        final sessionId = data['sessionId'];
+        // final sessionId = data['sessionId'];
         log('Verification successful: $data');
         // Handle success
       },
       onError: (error) {
         log('Verification error: $error');
         // Handle error
-      },
-      onTimeout: () {
-        log('Verification timed out');
-        // Handle timeout
       },
       onClose: () {
         log('Widget closed');
