@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -33,6 +35,19 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
             setState(() {
               _isLoading = true;
             });
+            _controller.runJavaScript("""
+              window.handleRequestErrors = function(error) {
+                try {
+                  const message = error.message || String(error);
+                  ApprovalChannel.postMessage(JSON.stringify({
+                    type: 'error',
+                    message: message
+                  }));
+                } catch(e) {
+                  console.error("Error in handleRequestErrors:", e);
+                }
+              };
+            """);
           },
           onPageFinished: (String url) {
             setState(() {
@@ -49,8 +64,9 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
         onMessageReceived: (JavaScriptMessage message) {
           _handleMessage(message.message);
         },
-      )
-      ..loadRequest(Uri.parse(widget.config.buildUrl()));
+      );
+
+    _controller.loadRequest(Uri.parse(widget.config.buildUrl()));
   }
 
   void _handleMessage(String message) {
@@ -70,6 +86,7 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
           Navigator.of(context).pop();
           break;
       }
+      log('Message received: $message');
     } catch (e) {
       widget.config.onError?.call('Failed to parse message: $e');
     }
