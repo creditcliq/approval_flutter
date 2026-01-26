@@ -58,13 +58,17 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
             widget.config.onError?.call(error.description);
           },
           onNavigationRequest: (NavigationRequest request) {
-            final url = request.url.toLowerCase();
-            if (url.contains('successful') || url.contains('failed')) {
+            final url = request.url;
+            final uri = Uri.parse(url);
+            final lowercaseUrl = url.toLowerCase();
+
+            if (lowercaseUrl.contains('successful') ||
+                lowercaseUrl.contains('failed')) {
               if (mounted) {
-                if (url.contains('successful')) {
-                  final sessionId = url.split('sessionid=')[1];
-                  widget.config.onSuccess?.call(sessionId);
-                } else if (url.contains('failed')) {
+                if (lowercaseUrl.contains('successful')) {
+                  final sessionId = uri.queryParameters['sessionid'];
+                  widget.config.onSuccess?.call(sessionId ?? '');
+                } else if (lowercaseUrl.contains('failed')) {
                   widget.config.onError?.call('Approval verification failed');
                 } else {
                   widget.config.onClose?.call();
@@ -76,41 +80,41 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
             return NavigationDecision.navigate;
           },
         ),
-      )
-      ..addJavaScriptChannel(
-        'ApprovalChannel',
-        onMessageReceived: (JavaScriptMessage message) {
-          _handleMessage(message.message);
-        },
       );
+    // ..addJavaScriptChannel(
+    //   'ApprovalChannel',
+    //   onMessageReceived: (JavaScriptMessage message) {
+    //     // _handleMessage(message.message);
+    //   },
+    // );
 
     _controller.loadRequest(Uri.parse(widget.config.buildUrl()));
   }
 
-  void _handleMessage(String message) {
-    try {
-      final data = jsonDecode(message);
-      final type = data['type'] as String?;
+  // void _handleMessage(String message) {
+  //   try {
+  //     final data = jsonDecode(message);
+  //     final type = data['type'] as String?;
 
-      switch (type) {
-        case 'success':
-          widget.config.onSuccess?.call(data['data']);
-          if (mounted) Navigator.of(context).pop();
-          break;
-        case 'error':
-          widget.config.onError?.call(data['message'] ?? 'Unknown error');
-          if (mounted) Navigator.of(context).pop();
-          break;
-        case 'close':
-          widget.config.onClose?.call();
-          if (mounted) Navigator.of(context).pop();
-          break;
-      }
-      log('Message received: $message');
-    } catch (e) {
-      widget.config.onError?.call('Failed to parse message: $e');
-    }
-  }
+  //     switch (type) {
+  //       case 'success':
+  //         widget.config.onSuccess?.call(data['data']);
+  //         if (mounted) Navigator.of(context).pop();
+  //         break;
+  //       case 'error':
+  //         widget.config.onError?.call(data['message'] ?? 'Unknown error');
+  //         if (mounted) Navigator.of(context).pop();
+  //         break;
+  //       case 'close':
+  //         widget.config.onClose?.call();
+  //         if (mounted) Navigator.of(context).pop();
+  //         break;
+  //     }
+  //     log('Message received: $message');
+  //   } catch (e) {
+  //     widget.config.onError?.call('Failed to parse message: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
