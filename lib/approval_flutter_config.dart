@@ -57,6 +57,24 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
           onWebResourceError: (WebResourceError error) {
             widget.config.onError?.call(error.description);
           },
+          onNavigationRequest: (NavigationRequest request) {
+            final url = request.url.toLowerCase();
+            if (url.contains('successful') || url.contains('failed')) {
+              if (mounted) {
+                if (url.contains('successful')) {
+                  final sessionId = url.split('sessionid=')[1];
+                  widget.config.onSuccess?.call(sessionId);
+                } else if (url.contains('failed')) {
+                  widget.config.onError?.call('Approval verification failed');
+                } else {
+                  widget.config.onClose?.call();
+                }
+                Navigator.of(context).pop();
+              }
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
         ),
       )
       ..addJavaScriptChannel(
@@ -77,13 +95,15 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
       switch (type) {
         case 'success':
           widget.config.onSuccess?.call(data['data']);
+          if (mounted) Navigator.of(context).pop();
           break;
         case 'error':
           widget.config.onError?.call(data['message'] ?? 'Unknown error');
+          if (mounted) Navigator.of(context).pop();
           break;
         case 'close':
           widget.config.onClose?.call();
-          Navigator.of(context).pop();
+          if (mounted) Navigator.of(context).pop();
           break;
       }
       log('Message received: $message');
@@ -134,3 +154,6 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
 //TODO: 
 //app id isn't needed.
 //add device fingerprint to the url
+
+
+

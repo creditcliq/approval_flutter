@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:approval_flutter/approval_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -28,15 +30,10 @@ class ExampleUsage extends StatelessWidget {
 
   void _startVerification(BuildContext context) {
     final config = ApprovalConfig(
-      publicKey:
-          'vy6LZWI/l/pOc868z8LAgEBCdvsSomPev2TxLqIdlNZIueMM0Agl8G88zxyE65LN',
-      //Module: income, credit, recova, identity
-      modules: [ApprovalModule.income, ApprovalModule.credit],
-
-      // incomeForm: 'your_income_form_here',
-      onSuccess: (data) {
-        // final sessionId = data['sessionId'];
-        log('Verification successful: $data');
+      publicKey: dotenv.env['PUBLIC_KEY'] ?? '',
+      modules: [ApprovalModule.credit],
+      onSuccess: (sessionId) {
+        log('Verification successful: $sessionId');
         // Handle success
       },
       onError: (error) {

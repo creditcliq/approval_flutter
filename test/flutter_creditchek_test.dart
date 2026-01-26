@@ -74,7 +74,7 @@ void main() {
       expect(config.onClose, isNotNull);
 
       // Test callbacks
-      config.onSuccess?.call({'test': 'data'});
+      config.onSuccess?.call('test sessionId');
       config.onError?.call('test error');
       config.onClose?.call();
 

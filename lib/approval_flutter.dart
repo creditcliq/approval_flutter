@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter_config.dart';
 
@@ -20,7 +22,7 @@ enum ApprovalModule { income, credit, recova } //identity
 class ApprovalConfig {
   final String publicKey;
   final List<ApprovalModule> modules;
-  final Function(Map<String, dynamic>)? onSuccess;
+  final Function(String)? onSuccess;
   final Function(String)? onError;
   final Function()? onClose;
   // final Function()? onTimeout;
@@ -55,6 +57,7 @@ class ApprovalConfig {
     // if (onTimeout != null) {
     //   url += '&onTimeout=$onTimeout';
     // }
+    log(url, name: 'ApprovalConfigURL');
     return url;
   }
 }
