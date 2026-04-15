@@ -17,7 +17,7 @@ class ApprovalFlutter {
   }
 }
 
-enum ApprovalModule { income, credit, recova } //identity
+enum ApprovalModule { income, credit, recova, identity }
 
 class ApprovalConfig {
   final String publicKey;
