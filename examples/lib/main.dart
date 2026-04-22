@@ -31,7 +31,7 @@ class ExampleUsage extends StatelessWidget {
   void _startVerification(BuildContext context) {
     final config = ApprovalConfig(
       publicKey: dotenv.env['PUBLIC_KEY'] ?? '',
-      modules: [ApprovalModule.identity],
+      modules: [ApprovalModule.identity, ApprovalModule.credit],
       onSuccess: (sessionId) {
         log('Verification successful: $sessionId');
         // Handle success
@@ -39,10 +39,6 @@ class ExampleUsage extends StatelessWidget {
       onError: (error) {
         log('Verification error: $error');
         // Handle error
-      },
-      onClose: () {
-        log('Widget closed');
-        // Handle close
       },
     );
 

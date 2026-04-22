@@ -24,7 +24,7 @@ class ApprovalConfig {
   final List<ApprovalModule> modules;
   final Function(String)? onSuccess;
   final Function(String)? onError;
-  final Function()? onClose;
+  // final Function()? onClose;
   // final Function()? onTimeout;
   // final Map<String, dynamic>? data;
 
@@ -39,7 +39,7 @@ class ApprovalConfig {
     // this.data,
     this.onSuccess,
     this.onError,
-    this.onClose,
+    // this.onClose,
     // this.onTimeout,
   });
 
