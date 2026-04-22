@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter_config.dart';
 
@@ -15,14 +17,14 @@ class ApprovalFlutter {
   }
 }
 
-enum ApprovalModule { income, credit, recova } //identity
+enum ApprovalModule { income, credit, recova, identity }
 
 class ApprovalConfig {
   final String publicKey;
   final List<ApprovalModule> modules;
-  final Function(Map<String, dynamic>)? onSuccess;
+  final Function(String)? onSuccess;
   final Function(String)? onError;
-  final Function()? onClose;
+  // final Function()? onClose;
   // final Function()? onTimeout;
   // final Map<String, dynamic>? data;
 
@@ -37,7 +39,7 @@ class ApprovalConfig {
     // this.data,
     this.onSuccess,
     this.onError,
-    this.onClose,
+    // this.onClose,
     // this.onTimeout,
   });
 
@@ -55,6 +57,7 @@ class ApprovalConfig {
     // if (onTimeout != null) {
     //   url += '&onTimeout=$onTimeout';
     // }
+    log(url, name: 'ApprovalConfigURL');
     return url;
   }
 }
