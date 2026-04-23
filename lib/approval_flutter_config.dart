@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:approval_flutter/approval_flutter.dart';
@@ -44,12 +42,6 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
     _initializeWebView();
   }
 
-  void _log(String message, {String name = 'WebView'}) {
-    if (kDebugMode) {
-      dev.log(message, name: name);
-    }
-  }
-
   void _initializeWebView() {
     late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
@@ -72,81 +64,61 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
     if (kDebugMode) {
       controller.addJavaScriptChannel(
         'NetworkLogger',
-        onMessageReceived: (JavaScriptMessage msg) {
-          _log(msg.message, name: 'WebView:Network');
-        },
+        onMessageReceived: (JavaScriptMessage msg) {},
       );
     }
 
     controller.setNavigationDelegate(
-        NavigationDelegate(
-          onPageStarted: (String url) {
-            _log('⏳ Page started: $url', name: 'WebView:Nav');
+      NavigationDelegate(
+        onPageStarted: (String url) {
+          setState(() {
+            _isLoading = true;
+            _hasError = false;
+          });
+        },
+        onPageFinished: (String url) {
+          setState(() => _isLoading = false);
+          // Inject fetch/XHR interceptors once the page JS context is ready
+          if (kDebugMode) {
+            controller.runJavaScript(_buildNetworkInterceptorJs());
+          }
+        },
+        onUrlChange: (UrlChange change) {},
+        onWebResourceError: (WebResourceError error) {
+          if (error.isForMainFrame == true) {
             setState(() {
-              _isLoading = true;
-              _hasError = false;
+              _isLoading = false;
+              _hasError = true;
+              _errorMessage = error.description;
             });
-          },
-          onPageFinished: (String url) {
-            _log('✅ Page finished: $url', name: 'WebView:Nav');
-            setState(() => _isLoading = false);
-            // Inject fetch/XHR interceptors once the page JS context is ready
-            if (kDebugMode) {
-              controller.runJavaScript(_buildNetworkInterceptorJs());
-            }
-          },
-          onUrlChange: (UrlChange change) {
-            _log('🔀 URL changed: ${change.url}', name: 'WebView:Nav');
-          },
-          onWebResourceError: (WebResourceError error) {
-            if (error.isForMainFrame == true) {
-              _log(
-                '❌ Resource error [main frame]: ${error.description} (${error.url})',
-                name: 'WebView:Error',
-              );
-              setState(() {
-                _isLoading = false;
-                _hasError = true;
-                _errorMessage = error.description;
-              });
-              widget.config.onError?.call(error.description);
-            } else {
-              _log(
-                '⚠️  Resource error [sub-frame]: ${error.description} (${error.url})',
-                name: 'WebView:Error',
-              );
-            }
-          },
-          onNavigationRequest: (NavigationRequest request) {
-            if (_handled) return NavigationDecision.prevent;
+            widget.config.onError?.call(error.description);
+          } else {}
+        },
+        onNavigationRequest: (NavigationRequest request) {
+          if (_handled) return NavigationDecision.prevent;
 
-            _log(
-              '🌐 Navigation request: ${request.url} (isMainFrame: ${request.isMainFrame})',
-              name: 'WebView:Nav',
-            );
+          final url = request.url;
+          final uri = Uri.parse(url);
+          final lowercaseUrl = url.toLowerCase();
 
-            final url = request.url;
-            final uri = Uri.parse(url);
-            final lowercaseUrl = url.toLowerCase();
-
-            if (lowercaseUrl.contains('success') ||
-                lowercaseUrl.contains('failed')) {
-              if (mounted) {
-                _handled = true;
-                if (lowercaseUrl.contains('success')) {
-                  final sessionId = uri.queryParameters['sessionId'];
-                  _showSuccessDialog(sessionId ?? '');
-                } else if (lowercaseUrl.contains('failed')) {
-                  _showFailedDialog();
-                }
+          if (lowercaseUrl.contains('success') ||
+              lowercaseUrl.contains('failed')) {
+            if (mounted) {
+              _handled = true;
+              if (lowercaseUrl.contains('success')) {
+                final sessionId = uri.queryParameters['sessionId'];
+                _showSuccessDialog(sessionId ?? '');
+              } else if (lowercaseUrl.contains('failed')) {
+                _showFailedDialog();
               }
-              return NavigationDecision.prevent;
             }
+            return NavigationDecision.prevent;
+          }
 
-            return NavigationDecision.navigate;
-          },
-        ),
-      );
+          return NavigationDecision.navigate;
+        },
+      ),
+    );
 
     if (controller.platform is AndroidWebViewController) {
       (controller.platform as AndroidWebViewController)
@@ -161,7 +133,6 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
     }
 
     _controller = controller;
-    _log('🚀 Loading URL: ${widget.config.buildUrl()}', name: 'WebView:Nav');
     _controller.loadRequest(Uri.parse(widget.config.buildUrl()));
   }
 

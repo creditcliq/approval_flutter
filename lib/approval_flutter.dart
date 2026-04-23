@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter_config.dart';
 
@@ -25,9 +23,6 @@ class ApprovalConfig {
   final Function(String)? onSuccess;
   final Function(String)? onError;
   final AUserData? userData;
-  // final Function()? onClose;
-  // final Function()? onTimeout;
-  // final Map<String, dynamic>? data;
 
   ApprovalConfig({
     required this.publicKey,
@@ -38,11 +33,8 @@ class ApprovalConfig {
       ApprovalModule.recova,
       ApprovalModule.identity,
     ],
-    // this.data,
     this.onSuccess,
     this.onError,
-    // this.onClose,
-    // this.onTimeout,
   });
 
   String buildUrl() {
@@ -66,7 +58,6 @@ class ApprovalConfig {
       'https://securedwidget.creditchek.africa/',
     ).replace(queryParameters: queryParams);
 
-    log(uri.toString(), name: 'ApprovalConfigURL');
     return uri.toString();
   }
 }
