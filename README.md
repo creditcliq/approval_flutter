@@ -30,20 +30,21 @@ import 'package:approval_flutter/approval_flutter.dart';
 Future<void> startApprovalFlow(BuildContext context) async {
   final config = ApprovalConfig(
     publicKey: 'pk_live_your_key',
+    userData: UserData(
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+    ),
     modules: const [
       ApprovalModule.income,
       ApprovalModule.credit,
       ApprovalModule.recova,
       ApprovalModule.identity,
     ],
-    incomeForm: 'FORM_ID',
-    onSuccess: (payload) {
-      final sessionId = payload['sessionId'];
-      debugPrint('Verification success: $sessionId');
+    onSuccess: (response) {
+      debugPrint('Verification success: $response');
     },
     onError: (message) => debugPrint('Approval error: $message'),
-    onTimeout: () => debugPrint('Approval timed out'),
-    onClose: () => debugPrint('Approval widget closed'),
   );
 
   await ApprovalFlutter.verify(context: context, config: config);
@@ -53,13 +54,10 @@ Future<void> startApprovalFlow(BuildContext context) async {
 ### Configuration options
 
 - `publicKey` (required): Provided by CreditChek.
+- `userData`: Optional user details to prefill the widget (e.g., `firstName`, `lastName`, `email`).
 - `modules`: Sequence of `ApprovalModule` values to display (defaults to all).
-- `incomeForm`: Optional form identifier for income workflows.
-- `onSuccess(Map data)`: Fired when the widget returns a successful response.
+- `onSuccess(String response)`: Fired when the widget returns a successful response.
 - `onError(String message)`: Called when the widget reports an error.
-- `onClose()`: Triggered when the user dismisses the widget or it emits a close
-  event.
-- `onTimeout()`: Optional callback if you choose to set a timeout.
 
 ## Setup
 
