@@ -34,15 +34,12 @@ void main() {
 
     test('should accept UserData', () {
       const publicKey = 'test-public-key';
-      final userData = UserData(
+      final userData = AUserData(
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
       );
-      final config = ApprovalConfig(
-        publicKey: publicKey,
-        userData: userData,
-      );
+      final config = ApprovalConfig(publicKey: publicKey, userData: userData);
 
       expect(config.userData, isNotNull);
       expect(config.userData?.firstName, 'John');
@@ -98,7 +95,7 @@ void main() {
 
   group('UserData', () {
     test('toJson should include all fields', () {
-      final userData = UserData(
+      final userData = AUserData(
         firstName: 'John',
         lastName: 'Doe',
         dateOfBirth: '1990-01-15',
@@ -123,7 +120,7 @@ void main() {
     });
 
     test('toJson should handle null fields', () {
-      final userData = UserData(firstName: 'John');
+      final userData = AUserData(firstName: 'John');
       final json = userData.toJson();
       expect(json['firstName'], 'John');
       expect(json['lastName'], isNull);
@@ -155,15 +152,12 @@ void main() {
 
     test('should include UserData when provided and omit nulls', () {
       const publicKey = 'test-public-key';
-      final userData = UserData(
+      final userData = AUserData(
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
       );
-      final config = ApprovalConfig(
-        publicKey: publicKey,
-        userData: userData,
-      );
+      final config = ApprovalConfig(publicKey: publicKey, userData: userData);
       final url = config.buildUrl();
 
       expect(url, contains('firstName=John'));
@@ -175,14 +169,11 @@ void main() {
 
     test('should handle special characters in UserData', () {
       const publicKey = 'test-public-key';
-      final userData = UserData(
+      final userData = AUserData(
         firstName: 'John Doe',
         address: '123 & 456 Street',
       );
-      final config = ApprovalConfig(
-        publicKey: publicKey,
-        userData: userData,
-      );
+      final config = ApprovalConfig(publicKey: publicKey, userData: userData);
       final url = config.buildUrl();
 
       expect(url, contains('firstName=John+Doe'));
@@ -190,4 +181,3 @@ void main() {
     });
   });
 }
-

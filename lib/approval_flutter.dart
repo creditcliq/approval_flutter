@@ -24,7 +24,7 @@ class ApprovalConfig {
   final List<ApprovalModule> modules;
   final Function(String)? onSuccess;
   final Function(String)? onError;
-  final UserData? userData;
+  final AUserData? userData;
   // final Function()? onClose;
   // final Function()? onTimeout;
   // final Map<String, dynamic>? data;

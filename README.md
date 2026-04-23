@@ -30,7 +30,7 @@ import 'package:approval_flutter/approval_flutter.dart';
 Future<void> startApprovalFlow(BuildContext context) async {
   final config = ApprovalConfig(
     publicKey: 'pk_live_your_key',
-    userData: UserData(
+    userData: AUserData(
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
