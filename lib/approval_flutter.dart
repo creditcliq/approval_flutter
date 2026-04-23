@@ -24,17 +24,19 @@ class ApprovalConfig {
   final List<ApprovalModule> modules;
   final Function(String)? onSuccess;
   final Function(String)? onError;
+  final UserData? userData;
   // final Function()? onClose;
   // final Function()? onTimeout;
   // final Map<String, dynamic>? data;
 
   ApprovalConfig({
     required this.publicKey,
+    this.userData,
     this.modules = const [
       ApprovalModule.income,
       ApprovalModule.credit,
       ApprovalModule.recova,
-      // ApprovalModule.identity,
+      ApprovalModule.identity,
     ],
     // this.data,
     this.onSuccess,
@@ -45,19 +47,64 @@ class ApprovalConfig {
 
   String buildUrl() {
     final moduleStr = modules.map((module) => module.name).join(',');
-    var url = 'https://securedwidget.creditchek.africa/?publicKey=$publicKey';
-    url += '&module=$moduleStr';
+    
+    final queryParams = <String, String>{
+      'publicKey': publicKey,
+      'module': moduleStr,
+      'source': 'flutter',
+    };
 
-    // if (data != null) {
-    //   data!.forEach((key, value) {
-    //     url += '&$key=$value';
-    //   });
-    // }
+    if (userData != null) {
+      userData!.toJson().forEach((key, value) {
+        if (value != null) {
+          queryParams[key] = value.toString();
+        }
+      });
+    }
 
-    // if (onTimeout != null) {
-    //   url += '&onTimeout=$onTimeout';
-    // }
-    log(url, name: 'ApprovalConfigURL');
-    return url;
+    final uri = Uri.parse('https://securedwidget.creditchek.africa/').replace(
+      queryParameters: queryParams,
+    );
+
+    log(uri.toString(), name: 'ApprovalConfigURL');
+    return uri.toString();
+  }
+}
+
+class UserData {
+  final String? firstName;
+  final String? lastName;
+  final String? dateOfBirth;
+  final String? bvn;
+  final String? email;
+  final String? phone;
+  final String? gender;
+  final String? country;
+  final String? address;
+
+  UserData({
+    this.firstName,
+    this.lastName,
+    this.dateOfBirth,
+    this.bvn,
+    this.email,
+    this.phone,
+    this.gender,
+    this.country,
+    this.address,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'dateOfBirth': dateOfBirth,
+      'bvn': bvn,
+      'email': email,
+      'phone': phone,
+      'gender': gender,
+      'country': country,
+      'address': address,
+    };
   }
 }

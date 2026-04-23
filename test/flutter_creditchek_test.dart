@@ -6,8 +6,8 @@ void main() {
     test('should have all expected enum values', () {
       expect(
         ApprovalModule.values.length,
-        3,
-      ); // Based on source code: income, credit, recova. Identity is commented out.
+        4,
+      ); // income, credit, recova, identity
       expect(ApprovalModule.values, contains(ApprovalModule.income));
       expect(ApprovalModule.values, contains(ApprovalModule.credit));
       expect(ApprovalModule.values, contains(ApprovalModule.recova));
@@ -30,17 +30,35 @@ void main() {
       expect(config.publicKey, publicKey);
       expect(config.onSuccess, isNull);
       expect(config.onError, isNull);
-      expect(config.onClose, isNull);
+    });
+
+    test('should accept UserData', () {
+      const publicKey = 'test-public-key';
+      final userData = UserData(
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+      );
+      final config = ApprovalConfig(
+        publicKey: publicKey,
+        userData: userData,
+      );
+
+      expect(config.userData, isNotNull);
+      expect(config.userData?.firstName, 'John');
+      expect(config.userData?.lastName, 'Doe');
+      expect(config.userData?.email, 'john@example.com');
     });
 
     test('should have default modules', () {
       const publicKey = 'test-public-key';
       final config = ApprovalConfig(publicKey: publicKey);
 
-      expect(config.modules.length, 3); // income, credit, recova
+      expect(config.modules.length, 4); // income, credit, recova, identity
       expect(config.modules, contains(ApprovalModule.income));
       expect(config.modules, contains(ApprovalModule.credit));
       expect(config.modules, contains(ApprovalModule.recova));
+      expect(config.modules, contains(ApprovalModule.identity));
     });
 
     test('should accept custom modules', () {
@@ -55,32 +73,60 @@ void main() {
       expect(config.modules.length, 2);
     });
 
-    test('should accept all optional parameters', () {
+    test('should accept callbacks', () {
       const publicKey = 'test-public-key';
       bool onSuccessCalled = false;
       bool onErrorCalled = false;
-      bool onCloseCalled = false;
 
       final config = ApprovalConfig(
         publicKey: publicKey,
         onSuccess: (_) => onSuccessCalled = true,
         onError: (_) => onErrorCalled = true,
-        onClose: () => onCloseCalled = true,
       );
 
       expect(config.publicKey, publicKey);
       expect(config.onSuccess, isNotNull);
       expect(config.onError, isNotNull);
-      expect(config.onClose, isNotNull);
 
-      // Test callbacks
       config.onSuccess?.call('test sessionId');
       config.onError?.call('test error');
-      config.onClose?.call();
 
       expect(onSuccessCalled, isTrue);
       expect(onErrorCalled, isTrue);
-      expect(onCloseCalled, isTrue);
+    });
+  });
+
+  group('UserData', () {
+    test('toJson should include all fields', () {
+      final userData = UserData(
+        firstName: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1990-01-15',
+        bvn: '12345678901',
+        email: 'john@example.com',
+        phone: '08012345678',
+        gender: 'male',
+        country: 'Nigeria',
+        address: '123 Main St',
+      );
+
+      final json = userData.toJson();
+      expect(json['firstName'], 'John');
+      expect(json['lastName'], 'Doe');
+      expect(json['dateOfBirth'], '1990-01-15');
+      expect(json['bvn'], '12345678901');
+      expect(json['email'], 'john@example.com');
+      expect(json['phone'], '08012345678');
+      expect(json['gender'], 'male');
+      expect(json['country'], 'Nigeria');
+      expect(json['address'], '123 Main St');
+    });
+
+    test('toJson should handle null fields', () {
+      final userData = UserData(firstName: 'John');
+      final json = userData.toJson();
+      expect(json['firstName'], 'John');
+      expect(json['lastName'], isNull);
     });
   });
 
@@ -92,7 +138,8 @@ void main() {
 
       expect(url, contains('https://securedwidget.creditchek.africa/?'));
       expect(url, contains('publicKey=$publicKey'));
-      expect(url, contains('module=income,credit,recova'));
+      expect(url, contains('module=income%2Ccredit%2Crecova%2Cidentity'));
+      expect(url, contains('source=flutter'));
     });
 
     test('should build URL with custom modules', () {
@@ -103,28 +150,44 @@ void main() {
       );
       final url = config.buildUrl();
 
-      expect(url, contains('module=income,credit'));
-      // expect(url, contains('publicKey=$publicKey')); // Already verified ordering isn't strictly enforced by general verification but explicit content is good.
+      expect(url, contains('module=income%2Ccredit'));
     });
 
-    test('should include publicKey when provided', () {
+    test('should include UserData when provided and omit nulls', () {
       const publicKey = 'test-public-key';
-      final config = ApprovalConfig(publicKey: publicKey);
-      final url = config.buildUrl();
-
-      expect(url, contains('publicKey=$publicKey'));
-    });
-
-    test('should handle single module correctly', () {
-      const publicKey = 'test-public-key';
+      final userData = UserData(
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+      );
       final config = ApprovalConfig(
         publicKey: publicKey,
-        modules: [ApprovalModule.credit],
+        userData: userData,
       );
       final url = config.buildUrl();
 
-      expect(url, contains('module=credit'));
-      expect(url, isNot(contains('module=credit,')));
+      expect(url, contains('firstName=John'));
+      expect(url, contains('lastName=Doe'));
+      expect(url, contains('email=john%40example.com'));
+      expect(url, isNot(contains('bvn=')));
+      expect(url, isNot(contains('phone=')));
+    });
+
+    test('should handle special characters in UserData', () {
+      const publicKey = 'test-public-key';
+      final userData = UserData(
+        firstName: 'John Doe',
+        address: '123 & 456 Street',
+      );
+      final config = ApprovalConfig(
+        publicKey: publicKey,
+        userData: userData,
+      );
+      final url = config.buildUrl();
+
+      expect(url, contains('firstName=John+Doe'));
+      expect(url, contains('address=123+%26+456+Street'));
     });
   });
 }
+
