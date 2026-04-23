@@ -36,17 +36,19 @@ Then configure and launch the widget:
 ```dart
 final config = ApprovalConfig(
   publicKey: 'pk_live_your_key',
+  userData: UserData(
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+  ),
   modules: [
     ApprovalModule.income,
     ApprovalModule.credit,
     ApprovalModule.recova,
     ApprovalModule.identity,
   ],
-  incomeForm: 'FORM_ID',
-  onSuccess: (payload) => debugPrint('Session: ${payload['sessionId']}'),
+  onSuccess: (response) => debugPrint('Session: $response'),
   onError: (message) => debugPrint('Error: $message'),
-  onTimeout: () => debugPrint('Timed out'),
-  onClose: () => debugPrint('Widget closed'),
 );
 
 await ApprovalFlutter.verify(context: context, config: config);
@@ -54,12 +56,9 @@ await ApprovalFlutter.verify(context: context, config: config);
 
 ### Available callbacks
 
-- `onSuccess(Map data)`: Fired when the workflow finishes successfully. Grab the
+- `onSuccess(String response)`: Fired when the workflow finishes successfully. Grab the
   `sessionId` and continue your flow.
 - `onError(String message)`: Triggered for validation or network issues.
-- `onTimeout()`: Optional safeguard if the user stalls.
-- `onClose()`: Called both when the user taps the close icon and when the widget
-  emits an explicit close event.
 
 ### Modules you can enable
 

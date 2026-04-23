@@ -24,7 +24,7 @@ class ApprovalConfig {
   final List<ApprovalModule> modules;
   final Function(String)? onSuccess;
   final Function(String)? onError;
-  final UserData? userData;
+  final AUserData? userData;
   // final Function()? onClose;
   // final Function()? onTimeout;
   // final Map<String, dynamic>? data;
@@ -47,7 +47,7 @@ class ApprovalConfig {
 
   String buildUrl() {
     final moduleStr = modules.map((module) => module.name).join(',');
-    
+
     final queryParams = <String, String>{
       'publicKey': publicKey,
       'module': moduleStr,
@@ -62,16 +62,16 @@ class ApprovalConfig {
       });
     }
 
-    final uri = Uri.parse('https://securedwidget.creditchek.africa/').replace(
-      queryParameters: queryParams,
-    );
+    final uri = Uri.parse(
+      'https://securedwidget.creditchek.africa/',
+    ).replace(queryParameters: queryParams);
 
     log(uri.toString(), name: 'ApprovalConfigURL');
     return uri.toString();
   }
 }
 
-class UserData {
+class AUserData {
   final String? firstName;
   final String? lastName;
   final String? dateOfBirth;
@@ -82,7 +82,7 @@ class UserData {
   final String? country;
   final String? address;
 
-  UserData({
+  AUserData({
     this.firstName,
     this.lastName,
     this.dateOfBirth,
