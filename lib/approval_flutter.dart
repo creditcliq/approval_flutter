@@ -98,7 +98,7 @@ class AUserData {
     return {
       'firstName': firstName,
       'lastName': lastName,
-      'dateOfBirth': dateOfBirth,
+      'dob': dateOfBirth,
       'bvn': bvn,
       'email': email,
       'phone': phone,

@@ -32,6 +32,11 @@ class ExampleUsage extends StatelessWidget {
     final config = ApprovalConfig(
       publicKey: dotenv.env['PUBLIC_KEY'] ?? '',
       modules: [ApprovalModule.identity, ApprovalModule.credit],
+      userData: AUserData(
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+      ),
       onSuccess: (sessionId) {
         log('Verification successful: $sessionId');
         // Handle success
