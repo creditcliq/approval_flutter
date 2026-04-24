@@ -7,9 +7,10 @@ experience that runs inside a native `WebView`.
 ## Features
 
 - Launches the hosted Approval Widget via `ApprovalFlutter.verify`.
-- Configurable modules so you can enable specific verification flows.
-- Flexible callbacks for success, error, timeout, and close events.
-- Minimal UI: renders a Material `AppBar`, progress indicator, and the widget.
+- Configurable modules (`income`, `credit`, `recova`, `identity`) to customize verification flows.
+- Callbacks for `onSuccess` (returns session ID) and `onError` events.
+- Support for pre-filling customer data (BVN, email, phone, etc.) to reduce friction.
+- Integrated success and failure dialogs for a cohesive user experience.
 
 ## Installation
 
@@ -17,7 +18,9 @@ Until this package is published to pub.dev point directly at the repo:
 
 ```yaml
 dependencies:
-  approval_flutter: <version>
+  approval_flutter:
+    git:
+      url: https://github.com/creditcliq/approval_flutter.git
 ```
 
 Run `flutter pub get` after updating `pubspec.yaml`.
@@ -141,4 +144,4 @@ public key, environment, and reproduction steps so we can help quickly.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the BSD 3-Clause License. See `LICENSE` for more information.
