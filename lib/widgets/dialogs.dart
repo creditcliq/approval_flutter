@@ -72,7 +72,7 @@ class _ApprovalDialog extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,
-                color: _kTextSecondary,
+                color: ThemeHelper.kTextSecondary,
                 height: 1.6,
               ),
             ),
@@ -114,12 +114,12 @@ class _ApprovalSuccessDialog extends StatelessWidget {
         width: 80,
         height: 80,
         decoration: const BoxDecoration(
-          color: _kPrimaryLight,
+          color: ThemeHelper.kPrimaryLight,
           shape: BoxShape.circle,
         ),
         child: const Icon(
           Icons.check_circle_rounded,
-          color: _kPrimary,
+          color: ThemeHelper.kPrimary,
           size: 42,
         ),
       ),
@@ -129,14 +129,17 @@ class _ApprovalSuccessDialog extends StatelessWidget {
           ? Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                color: _kSurface,
+                color: ThemeHelper.kSurface,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 children: [
                   const Text(
                     'Session ID: ',
-                    style: TextStyle(fontSize: 12, color: _kTextSecondary),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: ThemeHelper.kTextSecondary,
+                    ),
                   ),
                   Flexible(
                     child: Text(
@@ -208,12 +211,12 @@ class _ApprovalCloseConfirmDialog extends StatelessWidget {
         width: 80,
         height: 80,
         decoration: const BoxDecoration(
-          color: _kPrimaryLight,
+          color: ThemeHelper.kPrimaryLight,
           shape: BoxShape.circle,
         ),
         child: const Icon(
           Icons.info_outline_rounded,
-          color: _kPrimary,
+          color: ThemeHelper.kPrimary,
           size: 42,
         ),
       ),

@@ -11,14 +11,17 @@ void main() {
       expect(ApprovalModule.values, contains(ApprovalModule.income));
       expect(ApprovalModule.values, contains(ApprovalModule.credit));
       expect(ApprovalModule.values, contains(ApprovalModule.recova));
-      // expect(ApprovalModule.values, contains(ApprovalModule.identity)); // Identity is likely commented out in source or not
+      expect(
+        ApprovalModule.values,
+        contains(ApprovalModule.identity),
+      ); // Identity is likely commented out in source or not
     });
 
     test('should have correct name values', () {
       expect(ApprovalModule.income.name, 'income');
       expect(ApprovalModule.credit.name, 'credit');
       expect(ApprovalModule.recova.name, 'recova');
-      // expect(ApprovalModule.identity.name, 'identity');
+      expect(ApprovalModule.identity.name, 'identity');
     });
   });
 
@@ -93,7 +96,7 @@ void main() {
     });
   });
 
-  group('UserData', () {
+  group('AUserData', () {
     test('toJson should include all fields', () {
       final userData = AUserData(
         firstName: 'John',
@@ -110,7 +113,7 @@ void main() {
       final json = userData.toJson();
       expect(json['firstName'], 'John');
       expect(json['lastName'], 'Doe');
-      expect(json['dateOfBirth'], '1990-01-15');
+      expect(json['dob'], '1990-01-15');
       expect(json['bvn'], '12345678901');
       expect(json['email'], 'john@example.com');
       expect(json['phone'], '08012345678');

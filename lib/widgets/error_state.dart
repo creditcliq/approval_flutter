@@ -48,12 +48,12 @@ class _ErrorStateView extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: const BoxDecoration(
-                color: _kPrimaryLight,
+                color: ThemeHelper.kPrimaryLight,
                 shape: BoxShape.circle,
               ),
               child: const Icon(
                 Icons.wifi_off_rounded,
-                color: _kPrimary,
+                color: ThemeHelper.kPrimary,
                 size: 38,
               ),
             ),
@@ -74,7 +74,7 @@ class _ErrorStateView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,
-                color: _kTextSecondary,
+                color: ThemeHelper.kTextSecondary,
                 height: 1.6,
               ),
             ),
@@ -84,7 +84,7 @@ class _ErrorStateView extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _kPrimary,
+                  backgroundColor: ThemeHelper.kPrimary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(

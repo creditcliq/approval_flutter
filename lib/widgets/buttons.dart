@@ -42,7 +42,7 @@ class _PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: _kPrimary,
+          backgroundColor: ThemeHelper.kPrimary,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: RoundedRectangleBorder(
@@ -74,7 +74,7 @@ class _OutlineButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = borderColor ?? _kPrimary;
+    final color = borderColor ?? ThemeHelper.kPrimary;
     return Expanded(
       child: OutlinedButton(
         onPressed: onPressed,

@@ -44,6 +44,44 @@ class ApprovalFlutter {
 
 enum ApprovalModule { income, credit, recova, identity }
 
+class AUserData {
+  final String? firstName;
+  final String? lastName;
+  final String? dateOfBirth;
+  final String? bvn;
+  final String? email;
+  final String? phone;
+  final String? gender;
+  final String? country;
+  final String? address;
+
+  AUserData({
+    this.firstName,
+    this.lastName,
+    this.dateOfBirth,
+    this.bvn,
+    this.email,
+    this.phone,
+    this.gender,
+    this.country,
+    this.address,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'dob': dateOfBirth,
+      'bvn': bvn,
+      'email': email,
+      'phone': phone,
+      'gender': gender,
+      'country': country,
+      'address': address,
+    };
+  }
+}
+
 class ApprovalConfig {
   final String publicKey;
   final List<ApprovalModule> modules;
@@ -86,43 +124,5 @@ class ApprovalConfig {
     ).replace(queryParameters: queryParams);
 
     return uri.toString();
-  }
-}
-
-class AUserData {
-  final String? firstName;
-  final String? lastName;
-  final String? dateOfBirth;
-  final String? bvn;
-  final String? email;
-  final String? phone;
-  final String? gender;
-  final String? country;
-  final String? address;
-
-  AUserData({
-    this.firstName,
-    this.lastName,
-    this.dateOfBirth,
-    this.bvn,
-    this.email,
-    this.phone,
-    this.gender,
-    this.country,
-    this.address,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'firstName': firstName,
-      'lastName': lastName,
-      'dob': dateOfBirth,
-      'bvn': bvn,
-      'email': email,
-      'phone': phone,
-      'gender': gender,
-      'country': country,
-      'address': address,
-    };
   }
 }

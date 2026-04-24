@@ -25,6 +25,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import 'package:approval_flutter/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:approval_flutter/approval_flutter.dart';
@@ -35,14 +36,6 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 part 'widgets/dialogs.dart';
 part 'widgets/buttons.dart';
 part 'widgets/error_state.dart';
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Theme constants
-// ─────────────────────────────────────────────────────────────────────────────
-const Color _kPrimary = Color(0xFF0046E6);
-const Color _kPrimaryLight = Color(0xFFE8EFFF);
-const Color _kTextSecondary = Color(0xFF8A8A8A);
-const Color _kSurface = Color(0xFFF4F6FA);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Main CreditChek Widget
@@ -310,7 +303,7 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
           if (_isLoading && !_hasError)
             const Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(_kPrimary),
+                valueColor: AlwaysStoppedAnimation<Color>(ThemeHelper.kPrimary),
               ),
             ),
         ],
