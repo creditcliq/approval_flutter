@@ -2,18 +2,27 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter_config.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ApprovalFlutter {
   static Future<void> verify({
     required BuildContext context,
     required ApprovalConfig config,
   }) async {
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ApprovalWidget(config: config),
-        fullscreenDialog: true,
-      ),
-    );
+    final status = await Permission.camera.request();
+    if (status.isGranted == false) {
+      // ignore: use_build_context_synchronously
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ApprovalWidget(config: config),
+          fullscreenDialog: true,
+        ),
+      );
+    } else if (status.isPermanentlyDenied) {
+      throw Exception(
+        "Camera permission permanently denied. Please enable it in settings.",
+      );
+    }
   }
 }
 
