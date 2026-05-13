@@ -84,27 +84,34 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
     if (kDebugMode) {
       controller.addJavaScriptChannel(
         'NetworkLogger',
-        onMessageReceived: (JavaScriptMessage msg) {},
+        onMessageReceived: (JavaScriptMessage msg) {
+          _log('🌐 [Network] ${msg.message}');
+        },
       );
     }
 
     controller.setNavigationDelegate(
       NavigationDelegate(
         onPageStarted: (String url) {
+          _log('📄 [Page] Started loading: $url');
           setState(() {
             _isLoading = true;
             _hasError = false;
           });
         },
         onPageFinished: (String url) {
+          _log('📄 [Page] Finished loading: $url');
           setState(() => _isLoading = false);
           // Inject fetch/XHR interceptors once the page JS context is ready
           if (kDebugMode) {
             controller.runJavaScript(_buildNetworkInterceptorJs());
           }
         },
-        onUrlChange: (UrlChange change) {},
+        onUrlChange: (UrlChange change) {
+          _log('🔗 [URL] Changed to: ${change.url}');
+        },
         onWebResourceError: (WebResourceError error) {
+          _log('❌ [Error] ${error.errorCode}: ${error.description}');
           if (error.isForMainFrame == true) {
             setState(() {
               _isLoading = false;
@@ -115,7 +122,11 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
           } else {}
         },
         onNavigationRequest: (NavigationRequest request) {
-          if (_handled) return NavigationDecision.prevent;
+          _log('🚀 [Navigation] Requesting: ${request.url}');
+          if (_handled) {
+            _log('🚫 [Navigation] Prevented (already handled)');
+            return NavigationDecision.prevent;
+          }
 
           final url = request.url;
           final uri = Uri.parse(url);
@@ -210,12 +221,19 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
   }
 
   void _retryAfterError() {
+    _log('🔄 [Action] Retrying after error');
     setState(() {
       _hasError = false;
       _isLoading = true;
       _handled = false;
     });
     _controller.reload();
+  }
+
+  void _log(String message) {
+    if (kDebugMode) {
+      debugPrint('[CreditChek] $message');
+    }
   }
 
   // ─── JS network interceptor ────────────────────────────────────────────────

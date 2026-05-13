@@ -35,14 +35,12 @@ class _ApprovalDialog extends StatelessWidget {
   final String title;
   final String subtitle;
   final List<Widget> actions;
-  final Widget? extra;
 
   const _ApprovalDialog({
     required this.icon,
     required this.title,
     required this.subtitle,
     required this.actions,
-    this.extra,
   });
 
   @override
@@ -76,7 +74,6 @@ class _ApprovalDialog extends StatelessWidget {
                 height: 1.6,
               ),
             ),
-            if (extra != null) ...[const SizedBox(height: 14), extra!],
             const SizedBox(height: 28),
             Row(
               children: actions
@@ -125,37 +122,6 @@ class _ApprovalSuccessDialog extends StatelessWidget {
       ),
       title: 'Verification Successful',
       subtitle: 'Your identity has been verified successfully.',
-      extra: sessionId.isNotEmpty
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              decoration: BoxDecoration(
-                color: ThemeHelper.kSurface,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  const Text(
-                    'Session ID: ',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: ThemeHelper.kTextSecondary,
-                    ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      sessionId,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : null,
       actions: [_PrimaryButton(label: 'Continue', onPressed: onContinue)],
     );
   }

@@ -25,6 +25,8 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter_config.dart';
 
@@ -120,8 +122,12 @@ class ApprovalConfig {
     }
 
     final uri = Uri.parse(
-      'https://securedwidget.creditchek.africa/',
+      // 'https://securedwidget.creditchek.africa/',
+      'https://development--securedwidget.netlify.app/',
     ).replace(queryParameters: queryParams);
+
+    log("SDK_URL: ${uri.toString()}");
+    debugPrint(uri.toString());
 
     return uri.toString();
   }
