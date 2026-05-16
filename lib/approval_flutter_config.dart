@@ -1,5 +1,31 @@
-import 'dart:developer' as dev;
+// Copyright (c) 2026 CreditChek Africa. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice, this
+//    list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright notice,
+//    this list of conditions and the following disclaimer in the documentation
+//    and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its
+//    contributors may be used to endorse or promote products derived from
+//    this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import 'package:approval_flutter/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:approval_flutter/approval_flutter.dart';
@@ -10,14 +36,6 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 part 'widgets/dialogs.dart';
 part 'widgets/buttons.dart';
 part 'widgets/error_state.dart';
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Theme constants
-// ─────────────────────────────────────────────────────────────────────────────
-const Color _kPrimary = Color(0xFF0046E6);
-const Color _kPrimaryLight = Color(0xFFE8EFFF);
-const Color _kTextSecondary = Color(0xFF8A8A8A);
-const Color _kSurface = Color(0xFFF4F6FA);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Main CreditChek Widget
@@ -44,12 +62,6 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
     _initializeWebView();
   }
 
-  void _log(String message, {String name = 'WebView'}) {
-    if (kDebugMode) {
-      dev.log(message, name: name);
-    }
-  }
-
   void _initializeWebView() {
     late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
@@ -73,80 +85,71 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
       controller.addJavaScriptChannel(
         'NetworkLogger',
         onMessageReceived: (JavaScriptMessage msg) {
-          _log(msg.message, name: 'WebView:Network');
+          _log('🌐 [Network] ${msg.message}');
         },
       );
     }
 
     controller.setNavigationDelegate(
-        NavigationDelegate(
-          onPageStarted: (String url) {
-            _log('⏳ Page started: $url', name: 'WebView:Nav');
+      NavigationDelegate(
+        onPageStarted: (String url) {
+          _log('📄 [Page] Started loading: $url');
+          setState(() {
+            _isLoading = true;
+            _hasError = false;
+          });
+        },
+        onPageFinished: (String url) {
+          _log('📄 [Page] Finished loading: $url');
+          setState(() => _isLoading = false);
+          // Inject fetch/XHR interceptors once the page JS context is ready
+          if (kDebugMode) {
+            controller.runJavaScript(_buildNetworkInterceptorJs());
+          }
+        },
+        onUrlChange: (UrlChange change) {
+          _log('🔗 [URL] Changed to: ${change.url}');
+        },
+        onWebResourceError: (WebResourceError error) {
+          _log('❌ [Error] ${error.errorCode}: ${error.description}');
+          if (error.isForMainFrame == true) {
             setState(() {
-              _isLoading = true;
-              _hasError = false;
+              _isLoading = false;
+              _hasError = true;
+              _errorMessage = error.description;
             });
-          },
-          onPageFinished: (String url) {
-            _log('✅ Page finished: $url', name: 'WebView:Nav');
-            setState(() => _isLoading = false);
-            // Inject fetch/XHR interceptors once the page JS context is ready
-            if (kDebugMode) {
-              controller.runJavaScript(_buildNetworkInterceptorJs());
-            }
-          },
-          onUrlChange: (UrlChange change) {
-            _log('🔀 URL changed: ${change.url}', name: 'WebView:Nav');
-          },
-          onWebResourceError: (WebResourceError error) {
-            if (error.isForMainFrame == true) {
-              _log(
-                '❌ Resource error [main frame]: ${error.description} (${error.url})',
-                name: 'WebView:Error',
-              );
-              setState(() {
-                _isLoading = false;
-                _hasError = true;
-                _errorMessage = error.description;
-              });
-              widget.config.onError?.call(error.description);
-            } else {
-              _log(
-                '⚠️  Resource error [sub-frame]: ${error.description} (${error.url})',
-                name: 'WebView:Error',
-              );
-            }
-          },
-          onNavigationRequest: (NavigationRequest request) {
-            if (_handled) return NavigationDecision.prevent;
+            widget.config.onError?.call(error.description);
+          } else {}
+        },
+        onNavigationRequest: (NavigationRequest request) {
+          _log('🚀 [Navigation] Requesting: ${request.url}');
+          if (_handled) {
+            _log('🚫 [Navigation] Prevented (already handled)');
+            return NavigationDecision.prevent;
+          }
 
-            _log(
-              '🌐 Navigation request: ${request.url} (isMainFrame: ${request.isMainFrame})',
-              name: 'WebView:Nav',
-            );
+          final url = request.url;
+          final uri = Uri.parse(url);
+          final lowercaseUrl = url.toLowerCase();
 
-            final url = request.url;
-            final uri = Uri.parse(url);
-            final lowercaseUrl = url.toLowerCase();
-
-            if (lowercaseUrl.contains('success') ||
-                lowercaseUrl.contains('failed')) {
-              if (mounted) {
-                _handled = true;
-                if (lowercaseUrl.contains('success')) {
-                  final sessionId = uri.queryParameters['sessionId'];
-                  _showSuccessDialog(sessionId ?? '');
-                } else if (lowercaseUrl.contains('failed')) {
-                  _showFailedDialog();
-                }
+          if (lowercaseUrl.contains('success') ||
+              lowercaseUrl.contains('failed')) {
+            if (mounted) {
+              _handled = true;
+              if (lowercaseUrl.contains('success')) {
+                final sessionId = uri.queryParameters['sessionId'];
+                _showSuccessDialog(sessionId ?? '');
+              } else if (lowercaseUrl.contains('failed')) {
+                _showFailedDialog();
               }
-              return NavigationDecision.prevent;
             }
+            return NavigationDecision.prevent;
+          }
 
-            return NavigationDecision.navigate;
-          },
-        ),
-      );
+          return NavigationDecision.navigate;
+        },
+      ),
+    );
 
     if (controller.platform is AndroidWebViewController) {
       (controller.platform as AndroidWebViewController)
@@ -161,7 +164,6 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
     }
 
     _controller = controller;
-    _log('🚀 Loading URL: ${widget.config.buildUrl()}', name: 'WebView:Nav');
     _controller.loadRequest(Uri.parse(widget.config.buildUrl()));
   }
 
@@ -219,12 +221,19 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
   }
 
   void _retryAfterError() {
+    _log('🔄 [Action] Retrying after error');
     setState(() {
       _hasError = false;
       _isLoading = true;
       _handled = false;
     });
     _controller.reload();
+  }
+
+  void _log(String message) {
+    if (kDebugMode) {
+      debugPrint('[CreditChek] $message');
+    }
   }
 
   // ─── JS network interceptor ────────────────────────────────────────────────
@@ -312,7 +321,7 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
           if (_isLoading && !_hasError)
             const Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(_kPrimary),
+                valueColor: AlwaysStoppedAnimation<Color>(ThemeHelper.kPrimary),
               ),
             ),
         ],
