@@ -122,8 +122,8 @@ class ApprovalConfig {
     }
 
     final uri = Uri.parse(
-      // 'https://securedwidget.creditchek.africa/',
-      'https://development--securedwidget.netlify.app/',
+      'https://securedwidget.creditchek.africa/',
+      // 'https://development--securedwidget.netlify.app/',
     ).replace(queryParameters: queryParams);
 
     log("SDK_URL: ${uri.toString()}");
