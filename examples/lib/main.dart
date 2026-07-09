@@ -45,6 +45,7 @@ class ExampleUsage extends StatelessWidget {
         log('Verification error: $error');
         // Handle error
       },
+      baseUrl: dotenv.env['DEV_BASEURL'] ?? '',
     );
 
     ApprovalFlutter.verify(context: context, config: config);

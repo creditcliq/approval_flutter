@@ -90,10 +90,12 @@ class ApprovalConfig {
   final Function(String)? onSuccess;
   final Function(String)? onError;
   final AUserData? userData;
+  final String baseUrl;
 
   ApprovalConfig({
     required this.publicKey,
     this.userData,
+    required this.baseUrl,
     this.modules = const [
       ApprovalModule.income,
       ApprovalModule.credit,
@@ -121,10 +123,7 @@ class ApprovalConfig {
       });
     }
 
-    final uri = Uri.parse(
-      'https://securedwidget.creditchek.africa/',
-      // 'https://development--securedwidget.netlify.app/',
-    ).replace(queryParameters: queryParams);
+    final uri = Uri.parse(baseUrl).replace(queryParameters: queryParams);
 
     log("SDK_URL: ${uri.toString()}");
     debugPrint(uri.toString());
