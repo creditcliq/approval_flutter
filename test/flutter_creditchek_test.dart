@@ -28,9 +28,11 @@ void main() {
   group('ApprovalConfig', () {
     test('should create config with required publicKey', () {
       const publicKey = 'test-public-key';
-      final config = ApprovalConfig(publicKey: publicKey);
+      const baseUrl = 'test-base-url';
+      final config = ApprovalConfig(publicKey: publicKey, baseUrl: baseUrl);
 
       expect(config.publicKey, publicKey);
+      expect(config.baseUrl, baseUrl);
       expect(config.onSuccess, isNull);
       expect(config.onError, isNull);
     });
@@ -42,7 +44,12 @@ void main() {
         lastName: 'Doe',
         email: 'john@example.com',
       );
-      final config = ApprovalConfig(publicKey: publicKey, userData: userData);
+      const baseUrl = 'test-base-url';
+      final config = ApprovalConfig(
+        publicKey: publicKey,
+        userData: userData,
+        baseUrl: baseUrl,
+      );
 
       expect(config.userData, isNotNull);
       expect(config.userData?.firstName, 'John');
@@ -52,7 +59,8 @@ void main() {
 
     test('should have default modules', () {
       const publicKey = 'test-public-key';
-      final config = ApprovalConfig(publicKey: publicKey);
+      const baseUrl = 'test-base-url';
+      final config = ApprovalConfig(publicKey: publicKey, baseUrl: baseUrl);
 
       expect(config.modules.length, 4); // income, credit, recova, identity
       expect(config.modules, contains(ApprovalModule.income));
@@ -64,9 +72,11 @@ void main() {
     test('should accept custom modules', () {
       const publicKey = 'test-public-key';
       final customModules = [ApprovalModule.income, ApprovalModule.credit];
+      const baseUrl = 'test-base-url';
       final config = ApprovalConfig(
         publicKey: publicKey,
         modules: customModules,
+        baseUrl: baseUrl,
       );
 
       expect(config.modules, customModules);
@@ -77,11 +87,12 @@ void main() {
       const publicKey = 'test-public-key';
       bool onSuccessCalled = false;
       bool onErrorCalled = false;
-
+      const baseUrl = 'test-base-url';
       final config = ApprovalConfig(
         publicKey: publicKey,
         onSuccess: (_) => onSuccessCalled = true,
         onError: (_) => onErrorCalled = true,
+        baseUrl: baseUrl,
       );
 
       expect(config.publicKey, publicKey);
@@ -133,10 +144,11 @@ void main() {
   group('ApprovalConfig.buildUrl', () {
     test('should build URL with minimal required parameters', () {
       const publicKey = 'test-public-key';
-      final config = ApprovalConfig(publicKey: publicKey);
+      const baseUrl = 'test-base-url';
+      final config = ApprovalConfig(publicKey: publicKey, baseUrl: baseUrl);
       final url = config.buildUrl();
 
-      expect(url, contains('https://securedwidget.creditchek.africa/?'));
+      expect(url, contains(baseUrl));
       expect(url, contains('publicKey=$publicKey'));
       expect(url, contains('module=income%2Ccredit%2Crecova%2Cidentity'));
       expect(url, contains('source=flutter'));
@@ -144,9 +156,11 @@ void main() {
 
     test('should build URL with custom modules', () {
       const publicKey = 'test-public-key';
+      const baseUrl = 'test-base-url';
       final config = ApprovalConfig(
         publicKey: publicKey,
         modules: [ApprovalModule.income, ApprovalModule.credit],
+        baseUrl: baseUrl,
       );
       final url = config.buildUrl();
 
@@ -160,7 +174,12 @@ void main() {
         lastName: 'Doe',
         email: 'john@example.com',
       );
-      final config = ApprovalConfig(publicKey: publicKey, userData: userData);
+      const baseUrl = 'test-base-url';
+      final config = ApprovalConfig(
+        publicKey: publicKey,
+        userData: userData,
+        baseUrl: baseUrl,
+      );
       final url = config.buildUrl();
 
       expect(url, contains('firstName=John'));
@@ -176,7 +195,12 @@ void main() {
         firstName: 'John Doe',
         address: '123 & 456 Street',
       );
-      final config = ApprovalConfig(publicKey: publicKey, userData: userData);
+      const baseUrl = 'test-base-url';
+      final config = ApprovalConfig(
+        publicKey: publicKey,
+        userData: userData,
+        baseUrl: baseUrl,
+      );
       final url = config.buildUrl();
 
       expect(url, contains('firstName=John+Doe'));
