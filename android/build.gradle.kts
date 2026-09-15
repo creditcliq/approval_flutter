@@ -1,4 +1,5 @@
 group = "com.creditchek.approval_flutter"
+
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -23,9 +24,7 @@ allprojects {
     }
 }
 
-plugins {
-    id("com.android.library")
-}
+plugins { id("com.android.library") }
 
 android {
     namespace = "com.creditchek.approval_flutter"
@@ -38,17 +37,11 @@ android {
     }
 
     sourceSets {
-        getByName("main") {
-            java.srcDirs("src/main/kotlin")
-        }
-        getByName("test") {
-            java.srcDirs("src/test/kotlin")
-        }
+        getByName("main") { java.srcDirs("src/main/kotlin") }
+        getByName("test") { java.srcDirs("src/test/kotlin") }
     }
 
-    defaultConfig {
-        minSdk = 24
-    }
+    defaultConfig { minSdk = 24 }
 
     testOptions {
         unitTests {
@@ -67,18 +60,14 @@ android {
     }
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-    }
-}
+kotlin { compilerOptions { jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17 } }
 
 dependencies {
     // 1. CreditChek Approval Android Native SDK
     // If pulling from JitPack release:
     implementation("com.github.creditcliq:approval_android:1.0.0")
     // Note: If linking locally across projects in settings.gradle, you can use:
-//     implementation(project(":approval_android"))
+    //     implementation(project(":approval_android"))
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")

@@ -33,8 +33,8 @@ target 'Runner' do
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
-  # One-time local link to native approval_ios SDK:
-  pod 'approval_ios', :path => '../../../approval_ios'
+  # Native SDK is now vendored directly inside approval_flutter plugin (Frameworks/approval_ios.xcframework)
+  # pod 'approval_ios', :path => '../../../approval_ios'
 
   target 'RunnerTests' do
     inherit! :search_paths

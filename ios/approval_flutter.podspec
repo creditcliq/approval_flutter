@@ -19,7 +19,11 @@ Flutter plugin bridging to the native CreditChek Approval iOS SDK.
   s.vendored_frameworks = 'Frameworks/approval_ios.xcframework'
   s.platform         = :ios, '15.0'
 
-  # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+  s.frameworks = 'UIKit', 'AVFoundation', 'Vision', 'CoreML', 'Combine', 'SwiftUI'
+  s.pod_target_xcconfig = { 
+    'DEFINES_MODULE' => 'YES', 
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
+    'OTHER_LDFLAGS' => '$(inherited) -framework approval_ios'
+  }
   s.swift_version    = '5.9'
 end

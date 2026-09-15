@@ -1,28 +1,22 @@
 PODS:
   - approval_flutter (0.0.1):
-    - approval_ios
     - Flutter
-  - approval_ios (0.0.1)
   - Flutter (1.0.0)
 
 DEPENDENCIES:
   - approval_flutter (from `.symlinks/plugins/approval_flutter/ios`)
-  - approval_ios (from `../../../approval_ios`)
   - Flutter (from `Flutter`)
 
 EXTERNAL SOURCES:
   approval_flutter:
     :path: ".symlinks/plugins/approval_flutter/ios"
-  approval_ios:
-    :path: "../../../approval_ios"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  approval_flutter: 5ce9df331c6444d5c7c9f490a1566a168f41ba0c
-  approval_ios: 36f5756d61d63a74ece1c6a12ba0ec00fcb7933d
+  approval_flutter: 6b85618b87c13dd8858c7b18c76bdba772ec3b16
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
 
-PODFILE CHECKSUM: a5a5ce696a92b1e2484da1be5e3bbb84cc841b8f
+PODFILE CHECKSUM: 59fc61518ab88135a3b84dbb9d3de56328383acc
 
 COCOAPODS: 1.17.0
