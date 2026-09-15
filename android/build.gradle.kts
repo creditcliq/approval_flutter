@@ -19,7 +19,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        mavenLocal() // <--- Add mavenLocal() remove it from prod
         maven { url = uri("https://jitpack.io") }
     }
 }
