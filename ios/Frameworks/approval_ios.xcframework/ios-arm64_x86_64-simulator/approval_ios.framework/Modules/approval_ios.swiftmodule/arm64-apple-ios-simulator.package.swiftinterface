@@ -55,8 +55,6 @@ public struct LivelinessState : Swift.Sendable {
   public var guidance: Swift.String
   public var isVerificationComplete: Swift.Bool
   public var serverVerificationPassed: Swift.Bool
-  public var lastErrorMessage: Swift.String?
-  public var lastErrorTimestamp: Foundation.Date?
   public init(totalSteps: Swift.Int = 8)
 }
 @objc final public class LivelinessCameraEngine : ObjectiveC.NSObject, Combine.ObservableObject, @unchecked Swift.Sendable, AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -74,7 +72,6 @@ public struct LivelinessState : Swift.Sendable {
   final public func startCamera()
   final public func stopCamera()
   @objc final public func captureOutput(_ output: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from connection: AVFoundation.AVCaptureConnection)
-  final public func reportError(_ message: Swift.String)
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
 }
 @_Concurrency.MainActor @preconcurrency public struct CameraPreviewView : SwiftUI.UIViewRepresentable {
@@ -102,13 +99,16 @@ public struct ApiConstants {
   public static let prodBaseUrl: Swift.String
   public static let validatePublicKey: Swift.String
   public static let createWidgetSession: Swift.String
-  public static let updateWidgetSession: Swift.String
-  public static let getSession: Swift.String
+  public static let widgetSession: Swift.String
+  public static let sessionBvnData: Swift.String
   public static let verifyIdentityData: Swift.String
   public static let livenessHealth: Swift.String
   public static let livenessVerifyChallenge: Swift.String
+  public static let updateWidgetSession: Swift.String
+  public static let getSession: Swift.String
   public static let connectTimeoutSeconds: Swift.Double
   public static let readTimeoutSeconds: Swift.Double
+  public static let writeTimeoutSeconds: Swift.Double
   public static func getBaseUrl(for environment: approval_ios.ApprovalEnv) -> Swift.String
 }
 public enum NetworkQuality {
@@ -258,7 +258,8 @@ public enum SessionResult {
   @_Concurrency.MainActor @preconcurrency public var errorMessage: Swift.String?
   @_Concurrency.MainActor @preconcurrency public var keyboardType: UIKit.UIKeyboardType
   @_Concurrency.MainActor @preconcurrency public var maxLength: Swift.Int?
-  @_Concurrency.MainActor @preconcurrency public init(label: Swift.String, value: SwiftUICore.Binding<Swift.String>, hint: Swift.String, isRequired: Swift.Bool = true, isError: Swift.Bool = false, errorMessage: Swift.String? = nil, keyboardType: UIKit.UIKeyboardType = .default, maxLength: Swift.Int? = nil)
+  @_Concurrency.MainActor @preconcurrency public var isReadOnly: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public init(label: Swift.String, value: SwiftUICore.Binding<Swift.String>, hint: Swift.String, isRequired: Swift.Bool = true, isError: Swift.Bool = false, errorMessage: Swift.String? = nil, keyboardType: UIKit.UIKeyboardType = .default, maxLength: Swift.Int? = nil, isReadOnly: Swift.Bool = false)
   @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
     get
   }
@@ -460,9 +461,32 @@ public struct CreateSessionRequest : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
-public struct UpdateSessionRequest : Swift.Codable {
-  public let bvn: Swift.String
-  public init(bvn: Swift.String)
+public enum SessionStatus : Swift.String, Swift.Codable, Swift.Sendable {
+  case pending
+  case completed
+  case failed
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum SessionService : Swift.String, Swift.Codable, Swift.Sendable {
+  case bvn
+  case liveliness
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias Status = approval_ios.SessionStatus
+public typealias Service = approval_ios.SessionService
+public struct UpdateSessionRequest : Swift.Codable, Swift.Sendable {
+  public let bvn: Swift.String?
+  public let service: approval_ios.SessionService?
+  public let status: approval_ios.SessionStatus?
+  public init(bvn: Swift.String? = nil, service: approval_ios.SessionService? = nil, status: approval_ios.SessionStatus? = nil)
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
@@ -504,21 +528,37 @@ public struct ValidKeyApp : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
-public enum ApprovalStep : Swift.Sendable {
-  case splash
-  case welcome
-  case bvnCheck
-  case photoIntro
-  case liveliness
-  case processing
-  case success
-  case retry
-  case error
-  public static func == (a: approval_ios.ApprovalStep, b: approval_ios.ApprovalStep) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
+public enum ApprovalStep : Swift.Sendable, Swift.Equatable {
+  case identity(approval_ios.ApprovalStep.IdentityStep)
+  case liveliness(approval_ios.ApprovalStep.LivelinessStep)
+  public enum IdentityStep : Swift.Sendable, Swift.Equatable {
+    case splash
+    case error
+    case welcome
+    case bvnCheck
+    case success
+    case liveliness
+    public static func == (a: approval_ios.ApprovalStep.IdentityStep, b: approval_ios.ApprovalStep.IdentityStep) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
   }
+  public enum LivelinessStep : Swift.Sendable, Swift.Equatable {
+    case splash
+    case photoIntro
+    case liveliness
+    case processing
+    case success
+    case retry
+    case error
+    public static func == (a: approval_ios.ApprovalStep.LivelinessStep, b: approval_ios.ApprovalStep.LivelinessStep) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func == (a: approval_ios.ApprovalStep, b: approval_ios.ApprovalStep) -> Swift.Bool
 }
 @_Concurrency.MainActor @preconcurrency public struct ApprovalIdentityFlowNavigator : SwiftUICore.View {
   @_Concurrency.MainActor @preconcurrency public let config: approval_ios.ApprovalConfig
@@ -635,9 +675,10 @@ final public class IdentityRepository : Swift.Sendable {
   final public func validatePublicKey(publicKey: Swift.String) async -> Swift.Result<approval_ios.ValidKeyData, any Swift.Error>
   final public func createSession(publicKey: Swift.String, sessionId: Swift.String) async -> Swift.Result<approval_ios.SessionCreatedData, any Swift.Error>
   final public func verifyBvn(secretKey: Swift.String, bvn: Swift.String) async -> Swift.Result<approval_ios.BvnDetails, any Swift.Error>
-  final public func updateSessionWithBvn(sessionId: Swift.String, secretKey: Swift.String, bvn: Swift.String) async -> Swift.Result<Swift.Void, any Swift.Error>
+  final public func updateSessionWithBvn(sessionId: Swift.String, secretKey: Swift.String, bvn: Swift.String? = nil, status: approval_ios.SessionStatus? = nil, service: approval_ios.SessionService? = nil) async -> Swift.Result<Swift.Void, any Swift.Error>
   final public func verifyChallenge(accessToken: Swift.String, bvnImage: Swift.String, step: Swift.String, sessionId: Swift.String, frame: Swift.String, restart: Swift.Bool = false) async -> Swift.Result<approval_ios.ValidationData, any Swift.Error>
   final public func checkLivenessHealth() async -> Swift.Result<Swift.Bool, any Swift.Error>
+  final public func getSessionBvnData(sessionId: Swift.String, secretKey: Swift.String) async -> Swift.Result<approval_ios.BvnDetails, any Swift.Error>
   @objc deinit
 }
 public struct AnyCodable : Swift.Codable, Swift.Sendable {
@@ -708,8 +749,14 @@ extension approval_ios.PoweredByCreditChek : Swift.Sendable {}
 extension approval_ios.FaceVerificationStep : Swift.Equatable {}
 extension approval_ios.FaceVerificationStep : Swift.Hashable {}
 extension approval_ios.FaceVerificationStep : Swift.RawRepresentable {}
-extension approval_ios.ApprovalStep : Swift.Equatable {}
-extension approval_ios.ApprovalStep : Swift.Hashable {}
+extension approval_ios.SessionStatus : Swift.Equatable {}
+extension approval_ios.SessionStatus : Swift.Hashable {}
+extension approval_ios.SessionStatus : Swift.RawRepresentable {}
+extension approval_ios.SessionService : Swift.Equatable {}
+extension approval_ios.SessionService : Swift.Hashable {}
+extension approval_ios.SessionService : Swift.RawRepresentable {}
+extension approval_ios.ApprovalStep.IdentityStep : Swift.Hashable {}
+extension approval_ios.ApprovalStep.LivelinessStep : Swift.Hashable {}
 extension approval_ios.ApprovalIdentityFlowNavigator : Swift.Sendable {}
 extension approval_ios.ApprovalHeader : Swift.Sendable {}
 extension approval_ios.NetworkStatusPill : Swift.Sendable {}
