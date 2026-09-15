@@ -15,7 +15,8 @@ Flutter plugin bridging to the native CreditChek Approval iOS SDK.
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'approval_ios'
+  # s.dependency 'approval_ios'
+  s.vendored_frameworks = 'Frameworks/approval_ios.xcframework'
   s.platform         = :ios, '15.0'
 
   # Flutter.framework does not contain a i386 slice.
