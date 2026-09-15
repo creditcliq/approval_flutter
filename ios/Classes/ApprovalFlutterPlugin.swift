@@ -38,10 +38,21 @@ public class ApprovalFlutterPlugin: NSObject, FlutterPlugin {
         )
       }
 
+      // Parse modules
+      let rawModules = args["modules"] as? [String] ?? ["IDENTITY"]
+      let modules: [ApprovalModule] = rawModules.compactMap { key in
+        ApprovalModule(rawValue: key.lowercased())
+      }
+      let finalModules = modules.isEmpty ? [.identity] : modules
+
+      // Parse optional session ID
+      let sessionId = args["sessionId"] as? String
+
       let config = ApprovalConfig(
         publicKey: publicKey,
-        modules: [.identity],
+        modules: finalModules,
         userData: userData,
+        sessionId: sessionId,
         environment: environment
       )
 

@@ -82,11 +82,25 @@ class ApprovalFlutterPlugin :
                         phone = userMap["phone"] as? String
                     )
                 } else null
-                // 4. Construct SDK Config
+                // 4. Extract Modules
+                val rawModules = call.argument<List<String>>("modules") ?: listOf("IDENTITY")
+                val modules = rawModules.mapNotNull { name ->
+                    try {
+                        ApprovalModule.valueOf(name.uppercase())
+                    } catch (e: Exception) {
+                        null
+                    }
+                }.ifEmpty { listOf(ApprovalModule.IDENTITY) }
+
+                // 5. Extract Optional Session ID
+                val sessionId = call.argument<String>("sessionId")
+
+                // 6. Construct SDK Config
                 val config = ApprovalConfig(
                     publicKey = publicKey,
-                    modules = listOf(ApprovalModule.IDENTITY),
+                    modules = modules,
                     userData = userData,
+                    sessionId = sessionId,
                     environment = environment
                 )
                 // 5. Start Verification Flow
