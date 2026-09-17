@@ -456,6 +456,464 @@
       },
       {
         "kind": "Import",
+        "name": "CoreImage",
+        "printedName": "CoreImage",
+        "declKind": "Import",
+        "moduleName": "approval_ios"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreML",
+        "printedName": "CoreML",
+        "declKind": "Import",
+        "moduleName": "approval_ios"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "approval_ios"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "approval_ios"
+      },
+      {
+        "kind": "Import",
+        "name": "Vision",
+        "printedName": "Vision",
+        "declKind": "Import",
+        "moduleName": "approval_ios"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AccessoryClassificationResult",
+        "printedName": "AccessoryClassificationResult",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "hasGlasses",
+            "printedName": "hasGlasses",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios29AccessoryClassificationResultV10hasGlassesSbvp",
+            "mangledName": "$s12approval_ios29AccessoryClassificationResultV10hasGlassesSbvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios29AccessoryClassificationResultV10hasGlassesSbvg",
+                "mangledName": "$s12approval_ios29AccessoryClassificationResultV10hasGlassesSbvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "hasHeadwear",
+            "printedName": "hasHeadwear",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios29AccessoryClassificationResultV11hasHeadwearSbvp",
+            "mangledName": "$s12approval_ios29AccessoryClassificationResultV11hasHeadwearSbvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios29AccessoryClassificationResultV11hasHeadwearSbvg",
+                "mangledName": "$s12approval_ios29AccessoryClassificationResultV11hasHeadwearSbvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "glassesConfidence",
+            "printedName": "glassesConfidence",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios29AccessoryClassificationResultV17glassesConfidenceSfvp",
+            "mangledName": "$s12approval_ios29AccessoryClassificationResultV17glassesConfidenceSfvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Float",
+                    "printedName": "Swift.Float",
+                    "usr": "s:Sf"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios29AccessoryClassificationResultV17glassesConfidenceSfvg",
+                "mangledName": "$s12approval_ios29AccessoryClassificationResultV17glassesConfidenceSfvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "headwearConfidence",
+            "printedName": "headwearConfidence",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios29AccessoryClassificationResultV18headwearConfidenceSfvp",
+            "mangledName": "$s12approval_ios29AccessoryClassificationResultV18headwearConfidenceSfvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Float",
+                    "printedName": "Swift.Float",
+                    "usr": "s:Sf"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios29AccessoryClassificationResultV18headwearConfidenceSfvg",
+                "mangledName": "$s12approval_ios29AccessoryClassificationResultV18headwearConfidenceSfvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(hasGlasses:hasHeadwear:glassesConfidence:headwearConfidence:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AccessoryClassificationResult",
+                "printedName": "approval_ios.AccessoryClassificationResult",
+                "usr": "s:12approval_ios29AccessoryClassificationResultV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios29AccessoryClassificationResultV10hasGlasses0F8Headwear17glassesConfidence08headwearJ0ACSb_SbS2ftcfc",
+            "mangledName": "$s12approval_ios29AccessoryClassificationResultV10hasGlasses0F8Headwear17glassesConfidence08headwearJ0ACSb_SbS2ftcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:12approval_ios29AccessoryClassificationResultV",
+        "mangledName": "$s12approval_ios29AccessoryClassificationResultV",
+        "moduleName": "approval_ios",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AccessoryClassifierEngine",
+        "printedName": "AccessoryClassifierEngine",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AccessoryClassifierEngine",
+                "printedName": "approval_ios.AccessoryClassifierEngine",
+                "usr": "s:12approval_ios25AccessoryClassifierEngineC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios25AccessoryClassifierEngineCACycfc",
+            "mangledName": "$s12approval_ios25AccessoryClassifierEngineCACycfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "classify",
+            "printedName": "classify(pixelBuffer:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "approval_ios.AccessoryClassificationResult?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AccessoryClassificationResult",
+                    "printedName": "approval_ios.AccessoryClassificationResult",
+                    "usr": "s:12approval_ios29AccessoryClassificationResultV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CVBuffer",
+                "printedName": "CoreVideo.CVBuffer",
+                "usr": "c:@T@CVBufferRef"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios25AccessoryClassifierEngineC8classify11pixelBufferAA0C20ClassificationResultVSgSo11CVBufferRefa_tF",
+            "mangledName": "$s12approval_ios25AccessoryClassifierEngineC8classify11pixelBufferAA0C20ClassificationResultVSgSo11CVBufferRefa_tF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resetState",
+            "printedName": "resetState()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios25AccessoryClassifierEngineC10resetStateyyF",
+            "mangledName": "$s12approval_ios25AccessoryClassifierEngineC10resetStateyyF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "close",
+            "printedName": "close()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios25AccessoryClassifierEngineC5closeyyF",
+            "mangledName": "$s12approval_ios25AccessoryClassifierEngineC5closeyyF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12approval_ios25AccessoryClassifierEngineC",
+        "mangledName": "$s12approval_ios25AccessoryClassifierEngineC",
+        "moduleName": "approval_ios",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "approval_ios",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Combine",
         "printedName": "Combine",
         "declKind": "Import",
@@ -1236,6 +1694,178 @@
                 "declKind": "Accessor",
                 "usr": "s:12approval_ios15LivelinessStateV8isTooFarSbvM",
                 "mangledName": "$s12approval_ios15LivelinessStateV8isTooFarSbvM",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "hasGlasses",
+            "printedName": "hasGlasses",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios15LivelinessStateV10hasGlassesSbvp",
+            "mangledName": "$s12approval_ios15LivelinessStateV10hasGlassesSbvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios15LivelinessStateV10hasGlassesSbvg",
+                "mangledName": "$s12approval_ios15LivelinessStateV10hasGlassesSbvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios15LivelinessStateV10hasGlassesSbvs",
+                "mangledName": "$s12approval_ios15LivelinessStateV10hasGlassesSbvs",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios15LivelinessStateV10hasGlassesSbvM",
+                "mangledName": "$s12approval_ios15LivelinessStateV10hasGlassesSbvM",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "hasHeadwear",
+            "printedName": "hasHeadwear",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios15LivelinessStateV11hasHeadwearSbvp",
+            "mangledName": "$s12approval_ios15LivelinessStateV11hasHeadwearSbvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios15LivelinessStateV11hasHeadwearSbvg",
+                "mangledName": "$s12approval_ios15LivelinessStateV11hasHeadwearSbvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios15LivelinessStateV11hasHeadwearSbvs",
+                "mangledName": "$s12approval_ios15LivelinessStateV11hasHeadwearSbvs",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios15LivelinessStateV11hasHeadwearSbvM",
+                "mangledName": "$s12approval_ios15LivelinessStateV11hasHeadwearSbvM",
                 "moduleName": "approval_ios",
                 "implicit": true,
                 "accessorKind": "_modify"
@@ -11168,6 +11798,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "Shape",
+            "printedName": "Shape",
+            "usr": "s:7SwiftUI5ShapeP",
+            "mangledName": "$s7SwiftUI5ShapeP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Sendable",
             "printedName": "Sendable",
             "usr": "s:s8SendableP",
@@ -11233,24 +11870,10 @@
           },
           {
             "kind": "Conformance",
-            "name": "_RemoveGlobalActorIsolation",
-            "printedName": "_RemoveGlobalActorIsolation",
-            "usr": "s:7SwiftUI27_RemoveGlobalActorIsolationP",
-            "mangledName": "$s7SwiftUI27_RemoveGlobalActorIsolationP"
-          },
-          {
-            "kind": "Conformance",
             "name": "SendableMetatype",
             "printedName": "SendableMetatype",
             "usr": "s:s16SendableMetatypeP",
             "mangledName": "$ss16SendableMetatypeP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Shape",
-            "printedName": "Shape",
-            "usr": "s:7SwiftUI5ShapeP",
-            "mangledName": "$s7SwiftUI5ShapeP"
           }
         ]
       },
@@ -25937,6 +26560,1255 @@
       },
       {
         "kind": "Import",
+        "name": "CoreML",
+        "printedName": "CoreML",
+        "declKind": "Import",
+        "moduleName": "approval_ios",
+        "declAttributes": [
+          "Preconcurrency",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "accessory_classifierInput",
+        "printedName": "accessory_classifierInput",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "image",
+            "printedName": "image",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CVBuffer",
+                "printedName": "CoreVideo.CVBuffer",
+                "usr": "c:@T@CVBufferRef"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavp",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CVBuffer",
+                    "printedName": "CoreVideo.CVBuffer",
+                    "usr": "c:@T@CVBufferRef"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavg",
+                "mangledName": "$s12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CVBuffer",
+                    "printedName": "CoreVideo.CVBuffer",
+                    "usr": "c:@T@CVBufferRef"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavs",
+                "mangledName": "$s12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavs",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavM",
+                "mangledName": "$s12approval_ios25accessory_classifierInputC5imageSo11CVBufferRefavM",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "intro_Macosx": "12.0",
+                "intro_iOS": "15.0",
+                "intro_tvOS": "15.0",
+                "intro_watchOS": "8.0",
+                "declAttributes": [
+                  "Available",
+                  "Available",
+                  "Available",
+                  "Available",
+                  "Available"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "featureNames",
+            "printedName": "featureNames",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Set",
+                "printedName": "Swift.Set<Swift.String>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sh"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios25accessory_classifierInputC12featureNamesShySSGvp",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC12featureNamesShySSGvp",
+            "moduleName": "approval_ios",
+            "objc_name": "featureNames",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Set",
+                    "printedName": "Swift.Set<Swift.String>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sh"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios25accessory_classifierInputC12featureNamesShySSGvg",
+                "mangledName": "$s12approval_ios25accessory_classifierInputC12featureNamesShySSGvg",
+                "moduleName": "approval_ios",
+                "objc_name": "featureNames",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "featureValue",
+            "printedName": "featureValue(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CoreML.MLFeatureValue?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MLFeatureValue",
+                    "printedName": "CoreML.MLFeatureValue",
+                    "usr": "c:objc(cs)MLFeatureValue"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios25accessory_classifierInputC12featureValue3forSo09MLFeatureG0CSgSS_tF",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC12featureValue3forSo09MLFeatureG0CSgSS_tF",
+            "moduleName": "approval_ios",
+            "objc_name": "featureValueForName:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(image:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierInput",
+                "printedName": "approval_ios.accessory_classifierInput",
+                "usr": "s:12approval_ios25accessory_classifierInputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CVBuffer",
+                "printedName": "CoreVideo.CVBuffer",
+                "usr": "c:@T@CVBufferRef"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios25accessory_classifierInputC5imageACSo11CVBufferRefa_tcfc",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC5imageACSo11CVBufferRefa_tcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(imageWith:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierInput",
+                "printedName": "approval_ios.accessory_classifierInput",
+                "usr": "s:12approval_ios25accessory_classifierInputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGImage",
+                "printedName": "CoreGraphics.CGImage",
+                "usr": "c:@T@CGImageRef"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios25accessory_classifierInputC9imageWithACSo10CGImageRefa_tKcfc",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC9imageWithACSo10CGImageRefa_tKcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Convenience",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(imageAt:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierInput",
+                "printedName": "approval_ios.accessory_classifierInput",
+                "usr": "s:12approval_ios25accessory_classifierInputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios25accessory_classifierInputC7imageAtAC10Foundation3URLV_tKcfc",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC7imageAtAC10Foundation3URLV_tKcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Convenience",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Function",
+            "name": "setImage",
+            "printedName": "setImage(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGImage",
+                "printedName": "CoreGraphics.CGImage",
+                "usr": "c:@T@CGImageRef"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios25accessory_classifierInputC8setImage4withySo10CGImageRefa_tKF",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC8setImage4withySo10CGImageRefa_tKF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setImage",
+            "printedName": "setImage(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios25accessory_classifierInputC8setImage4withy10Foundation3URLV_tKF",
+            "mangledName": "$s12approval_ios25accessory_classifierInputC8setImage4withy10Foundation3URLV_tKF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12approval_ios25accessory_classifierInputC",
+        "mangledName": "$s12approval_ios25accessory_classifierInputC",
+        "moduleName": "approval_ios",
+        "intro_Macosx": "12.0",
+        "intro_iOS": "15.0",
+        "intro_tvOS": "15.0",
+        "intro_watchOS": "8.0",
+        "declAttributes": [
+          "AccessControl",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "accessory_classifierOutput",
+        "printedName": "accessory_classifierOutput",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "Identity",
+            "printedName": "Identity",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "MLMultiArray",
+                "printedName": "CoreML.MLMultiArray",
+                "usr": "c:objc(cs)MLMultiArray"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios26accessory_classifierOutputC8IdentitySo12MLMultiArrayCvp",
+            "mangledName": "$s12approval_ios26accessory_classifierOutputC8IdentitySo12MLMultiArrayCvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MLMultiArray",
+                    "printedName": "CoreML.MLMultiArray",
+                    "usr": "c:objc(cs)MLMultiArray"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios26accessory_classifierOutputC8IdentitySo12MLMultiArrayCvg",
+                "mangledName": "$s12approval_ios26accessory_classifierOutputC8IdentitySo12MLMultiArrayCvg",
+                "moduleName": "approval_ios",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "IdentityShapedArray",
+            "printedName": "IdentityShapedArray",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "MLShapedArray",
+                "printedName": "CoreML.MLShapedArray<Swift.Float>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Float",
+                    "printedName": "Swift.Float",
+                    "usr": "s:Sf"
+                  }
+                ],
+                "usr": "s:6CoreML13MLShapedArrayV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios26accessory_classifierOutputC19IdentityShapedArray6CoreML08MLShapedH0VySfGvp",
+            "mangledName": "$s12approval_ios26accessory_classifierOutputC19IdentityShapedArray6CoreML08MLShapedH0VySfGvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MLShapedArray",
+                    "printedName": "CoreML.MLShapedArray<Swift.Float>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Float",
+                        "printedName": "Swift.Float",
+                        "usr": "s:Sf"
+                      }
+                    ],
+                    "usr": "s:6CoreML13MLShapedArrayV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios26accessory_classifierOutputC19IdentityShapedArray6CoreML08MLShapedH0VySfGvg",
+                "mangledName": "$s12approval_ios26accessory_classifierOutputC19IdentityShapedArray6CoreML08MLShapedH0VySfGvg",
+                "moduleName": "approval_ios",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "featureNames",
+            "printedName": "featureNames",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Set",
+                "printedName": "Swift.Set<Swift.String>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sh"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios26accessory_classifierOutputC12featureNamesShySSGvp",
+            "mangledName": "$s12approval_ios26accessory_classifierOutputC12featureNamesShySSGvp",
+            "moduleName": "approval_ios",
+            "objc_name": "featureNames",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Set",
+                    "printedName": "Swift.Set<Swift.String>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sh"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios26accessory_classifierOutputC12featureNamesShySSGvg",
+                "mangledName": "$s12approval_ios26accessory_classifierOutputC12featureNamesShySSGvg",
+                "moduleName": "approval_ios",
+                "objc_name": "featureNames",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "featureValue",
+            "printedName": "featureValue(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CoreML.MLFeatureValue?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MLFeatureValue",
+                    "printedName": "CoreML.MLFeatureValue",
+                    "usr": "c:objc(cs)MLFeatureValue"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios26accessory_classifierOutputC12featureValue3forSo09MLFeatureG0CSgSS_tF",
+            "mangledName": "$s12approval_ios26accessory_classifierOutputC12featureValue3forSo09MLFeatureG0CSgSS_tF",
+            "moduleName": "approval_ios",
+            "objc_name": "featureValueForName:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(Identity:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierOutput",
+                "printedName": "approval_ios.accessory_classifierOutput",
+                "usr": "s:12approval_ios26accessory_classifierOutputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLMultiArray",
+                "printedName": "CoreML.MLMultiArray",
+                "usr": "c:objc(cs)MLMultiArray"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios26accessory_classifierOutputC8IdentityACSo12MLMultiArrayC_tcfc",
+            "mangledName": "$s12approval_ios26accessory_classifierOutputC8IdentityACSo12MLMultiArrayC_tcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(features:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierOutput",
+                "printedName": "approval_ios.accessory_classifierOutput",
+                "usr": "s:12approval_ios26accessory_classifierOutputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLFeatureProvider",
+                "printedName": "any CoreML.MLFeatureProvider",
+                "usr": "c:objc(pl)MLFeatureProvider"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios26accessory_classifierOutputC8featuresACSo17MLFeatureProvider_p_tcfc",
+            "mangledName": "$s12approval_ios26accessory_classifierOutputC8featuresACSo17MLFeatureProvider_p_tcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12approval_ios26accessory_classifierOutputC",
+        "mangledName": "$s12approval_ios26accessory_classifierOutputC",
+        "moduleName": "approval_ios",
+        "intro_Macosx": "12.0",
+        "intro_iOS": "15.0",
+        "intro_tvOS": "15.0",
+        "intro_watchOS": "8.0",
+        "declAttributes": [
+          "AccessControl",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "accessory_classifier",
+        "printedName": "accessory_classifier",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "model",
+            "printedName": "model",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "MLModel",
+                "printedName": "CoreML.MLModel",
+                "usr": "c:objc(cs)MLModel"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios20accessory_classifierC5modelSo7MLModelCvp",
+            "mangledName": "$s12approval_ios20accessory_classifierC5modelSo7MLModelCvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MLModel",
+                    "printedName": "CoreML.MLModel",
+                    "usr": "c:objc(cs)MLModel"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios20accessory_classifierC5modelSo7MLModelCvg",
+                "mangledName": "$s12approval_ios20accessory_classifierC5modelSo7MLModelCvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifier",
+                "printedName": "approval_ios.accessory_classifier",
+                "usr": "s:12approval_ios20accessory_classifierC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLModelConfiguration",
+                "printedName": "CoreML.MLModelConfiguration",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLModelConfiguration"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios20accessory_classifierC13configurationACSo20MLModelConfigurationC_tKcfc",
+            "mangledName": "$s12approval_ios20accessory_classifierC13configurationACSo20MLModelConfigurationC_tKcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Convenience",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(contentsOf:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifier",
+                "printedName": "approval_ios.accessory_classifier",
+                "usr": "s:12approval_ios20accessory_classifierC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios20accessory_classifierC10contentsOfAC10Foundation3URLV_tKcfc",
+            "mangledName": "$s12approval_ios20accessory_classifierC10contentsOfAC10Foundation3URLV_tKcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Convenience",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(contentsOf:configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifier",
+                "printedName": "approval_ios.accessory_classifier",
+                "usr": "s:12approval_ios20accessory_classifierC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLModelConfiguration",
+                "printedName": "CoreML.MLModelConfiguration",
+                "usr": "c:objc(cs)MLModelConfiguration"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios20accessory_classifierC10contentsOf13configurationAC10Foundation3URLV_So20MLModelConfigurationCtKcfc",
+            "mangledName": "$s12approval_ios20accessory_classifierC10contentsOf13configurationAC10Foundation3URLV_So20MLModelConfigurationCtKcfc",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Convenience",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(configuration:completionHandler:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLModelConfiguration",
+                "printedName": "CoreML.MLModelConfiguration",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLModelConfiguration"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Result<approval_ios.accessory_classifier, any Swift.Error>) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Result",
+                    "printedName": "Swift.Result<approval_ios.accessory_classifier, any Swift.Error>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "accessory_classifier",
+                        "printedName": "approval_ios.accessory_classifier",
+                        "usr": "s:12approval_ios20accessory_classifierC"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:s6ResultO"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC4load13configuration17completionHandlerySo20MLModelConfigurationC_ys6ResultOyACs5Error_pGctFZ",
+            "mangledName": "$s12approval_ios20accessory_classifierC4load13configuration17completionHandlerySo20MLModelConfigurationC_ys6ResultOyACs5Error_pGctFZ",
+            "moduleName": "approval_ios",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifier",
+                "printedName": "approval_ios.accessory_classifier",
+                "usr": "s:12approval_ios20accessory_classifierC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLModelConfiguration",
+                "printedName": "CoreML.MLModelConfiguration",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLModelConfiguration"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC4load13configurationACSo20MLModelConfigurationC_tYaKFZ",
+            "mangledName": "$s12approval_ios20accessory_classifierC4load13configurationACSo20MLModelConfigurationC_tYaKFZ",
+            "moduleName": "approval_ios",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(contentsOf:configuration:completionHandler:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLModelConfiguration",
+                "printedName": "CoreML.MLModelConfiguration",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLModelConfiguration"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Result<approval_ios.accessory_classifier, any Swift.Error>) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Result",
+                    "printedName": "Swift.Result<approval_ios.accessory_classifier, any Swift.Error>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "accessory_classifier",
+                        "printedName": "approval_ios.accessory_classifier",
+                        "usr": "s:12approval_ios20accessory_classifierC"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:s6ResultO"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC4load10contentsOf13configuration17completionHandlery10Foundation3URLV_So20MLModelConfigurationCys6ResultOyACs5Error_pGctFZ",
+            "mangledName": "$s12approval_ios20accessory_classifierC4load10contentsOf13configuration17completionHandlery10Foundation3URLV_So20MLModelConfigurationCys6ResultOyACs5Error_pGctFZ",
+            "moduleName": "approval_ios",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(contentsOf:configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifier",
+                "printedName": "approval_ios.accessory_classifier",
+                "usr": "s:12approval_ios20accessory_classifierC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLModelConfiguration",
+                "printedName": "CoreML.MLModelConfiguration",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLModelConfiguration"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC4load10contentsOf13configurationAC10Foundation3URLV_So20MLModelConfigurationCtYaKFZ",
+            "mangledName": "$s12approval_ios20accessory_classifierC4load10contentsOf13configurationAC10Foundation3URLV_So20MLModelConfigurationCtYaKFZ",
+            "moduleName": "approval_ios",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prediction",
+            "printedName": "prediction(input:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierOutput",
+                "printedName": "approval_ios.accessory_classifierOutput",
+                "usr": "s:12approval_ios26accessory_classifierOutputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierInput",
+                "printedName": "approval_ios.accessory_classifierInput",
+                "usr": "s:12approval_ios25accessory_classifierInputC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC10prediction5inputAA0c1_D6OutputCAA0c1_D5InputC_tKF",
+            "mangledName": "$s12approval_ios20accessory_classifierC10prediction5inputAA0c1_D6OutputCAA0c1_D5InputC_tKF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prediction",
+            "printedName": "prediction(input:options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierOutput",
+                "printedName": "approval_ios.accessory_classifierOutput",
+                "usr": "s:12approval_ios26accessory_classifierOutputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierInput",
+                "printedName": "approval_ios.accessory_classifierInput",
+                "usr": "s:12approval_ios25accessory_classifierInputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLPredictionOptions",
+                "printedName": "CoreML.MLPredictionOptions",
+                "usr": "c:objc(cs)MLPredictionOptions"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC10prediction5input7optionsAA0c1_D6OutputCAA0c1_D5InputC_So19MLPredictionOptionsCtKF",
+            "mangledName": "$s12approval_ios20accessory_classifierC10prediction5input7optionsAA0c1_D6OutputCAA0c1_D5InputC_So19MLPredictionOptionsCtKF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prediction",
+            "printedName": "prediction(input:options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierOutput",
+                "printedName": "approval_ios.accessory_classifierOutput",
+                "usr": "s:12approval_ios26accessory_classifierOutputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierInput",
+                "printedName": "approval_ios.accessory_classifierInput",
+                "usr": "s:12approval_ios25accessory_classifierInputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLPredictionOptions",
+                "printedName": "CoreML.MLPredictionOptions",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLPredictionOptions"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC10prediction5input7optionsAA0c1_D6OutputCAA0c1_D5InputC_So19MLPredictionOptionsCtYaKF",
+            "mangledName": "$s12approval_ios20accessory_classifierC10prediction5input7optionsAA0c1_D6OutputCAA0c1_D5InputC_So19MLPredictionOptionsCtYaKF",
+            "moduleName": "approval_ios",
+            "intro_Macosx": "14.0",
+            "intro_iOS": "17.0",
+            "intro_tvOS": "17.0",
+            "intro_watchOS": "10.0",
+            "declAttributes": [
+              "AccessControl",
+              "Available",
+              "Available",
+              "Available",
+              "Available",
+              "Available",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prediction",
+            "printedName": "prediction(image:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "accessory_classifierOutput",
+                "printedName": "approval_ios.accessory_classifierOutput",
+                "usr": "s:12approval_ios26accessory_classifierOutputC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CVBuffer",
+                "printedName": "CoreVideo.CVBuffer",
+                "usr": "c:@T@CVBufferRef"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC10prediction5imageAA0c1_D6OutputCSo11CVBufferRefa_tKF",
+            "mangledName": "$s12approval_ios20accessory_classifierC10prediction5imageAA0c1_D6OutputCSo11CVBufferRefa_tKF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "predictions",
+            "printedName": "predictions(inputs:options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[approval_ios.accessory_classifierOutput]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "accessory_classifierOutput",
+                    "printedName": "approval_ios.accessory_classifierOutput",
+                    "usr": "s:12approval_ios26accessory_classifierOutputC"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[approval_ios.accessory_classifierInput]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "accessory_classifierInput",
+                    "printedName": "approval_ios.accessory_classifierInput",
+                    "usr": "s:12approval_ios25accessory_classifierInputC"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "MLPredictionOptions",
+                "printedName": "CoreML.MLPredictionOptions",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)MLPredictionOptions"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios20accessory_classifierC11predictions6inputs7optionsSayAA0c1_D6OutputCGSayAA0c1_D5InputCG_So19MLPredictionOptionsCtKF",
+            "mangledName": "$s12approval_ios20accessory_classifierC11predictions6inputs7optionsSayAA0c1_D6OutputCGSayAA0c1_D5InputCG_So19MLPredictionOptionsCtKF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12approval_ios20accessory_classifierC",
+        "mangledName": "$s12approval_ios20accessory_classifierC",
+        "moduleName": "approval_ios",
+        "intro_Macosx": "12.0",
+        "intro_iOS": "15.0",
+        "intro_tvOS": "15.0",
+        "intro_watchOS": "8.0",
+        "declAttributes": [
+          "AccessControl",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "RawDocComment"
+        ],
+        "hasMissingDesignatedInitializers": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -27433,32 +29305,144 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 27,
       "value": "\"approval_ios_approval_ios\""
     },
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "Array",
       "offset": 981,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "StringLiteral",
       "offset": 1508,
       "length": 9,
       "value": "\".bundle\""
     },
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "StringLiteral",
       "offset": 1660,
       "length": 55,
       "value": "\"unable to find bundle named approval_ios_approval_ios\""
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1604,
+      "length": 3,
+      "value": "160"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "FloatLiteral",
+      "offset": 1664,
+      "length": 4,
+      "value": "0.25"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "FloatLiteral",
+      "offset": 1726,
+      "length": 4,
+      "value": "0.65"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "FloatLiteral",
+      "offset": 1794,
+      "length": 4,
+      "value": "0.15"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "FloatLiteral",
+      "offset": 1863,
+      "length": 4,
+      "value": "0.45"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2019,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2070,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "FloatLiteral",
+      "offset": 2119,
+      "length": 4,
+      "value": "0.40"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2189,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2708,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2954,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2992,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3031,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3073,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3112,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/AccessoryClassifierEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3152,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/ApprovalTtsEngine.swift",
@@ -27511,213 +29495,262 @@
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1455,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1496,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 1460,
+      "offset": 1541,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 1557,
+      "offset": 1638,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 1600,
+      "offset": 1681,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 1647,
+      "offset": 1728,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "StringLiteral",
-      "offset": 1685,
+      "offset": 1766,
       "length": 20,
       "value": "\"Starting camera...\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "BooleanLiteral",
-      "offset": 1752,
+      "offset": 1833,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "BooleanLiteral",
-      "offset": 1806,
+      "offset": 1887,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 1847,
+      "offset": 1928,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 2460,
+      "offset": 2541,
       "length": 4,
       "value": "15.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 2496,
+      "offset": 2577,
       "length": 4,
       "value": "6.50"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 2534,
+      "offset": 2615,
       "length": 4,
       "value": "-9.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 2787,
+      "offset": 2868,
       "length": 4,
       "value": "0.16"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 2827,
+      "offset": 2908,
       "length": 4,
       "value": "0.18"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 2888,
+      "offset": 2969,
       "length": 4,
       "value": "0.45"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 3164,
+      "offset": 3245,
       "length": 4,
       "value": "0.28"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 3200,
+      "offset": 3281,
       "length": 4,
       "value": "0.65"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 3240,
+      "offset": 3321,
       "length": 4,
       "value": "1.07"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "StringLiteral",
-      "offset": 3770,
+      "offset": 3851,
       "length": 37,
       "value": "\"com.creditchek.approval.cameraqueue\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 4121,
+      "offset": 4202,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 4152,
+      "offset": 4233,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 4187,
+      "offset": 4268,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 4432,
+      "offset": 4513,
       "length": 3,
       "value": "1.2"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 4744,
+      "offset": 4825,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 4853,
+      "offset": 4934,
       "length": 3,
       "value": "0.8"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 4960,
+      "offset": 5041,
       "length": 3,
       "value": "1.8"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "BooleanLiteral",
-      "offset": 5424,
+      "offset": 5505,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 5472,
+      "offset": 5553,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "FloatLiteral",
-      "offset": 5632,
+      "offset": 5713,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "BooleanLiteral",
-      "offset": 5672,
+      "offset": 5753,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
       "kind": "BooleanLiteral",
-      "offset": 5712,
+      "offset": 5793,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "FloatLiteral",
+      "offset": 6355,
+      "length": 5,
+      "value": "0.300"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6402,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6442,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6483,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/engines\/LivelinessCameraEngine.swift",
+      "kind": "StringLiteral",
+      "offset": 6543,
+      "length": 35,
+      "value": "\"com.creditchek.approval.accessory\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
@@ -28742,21 +30775,28 @@
       "value": "false"
     },
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/CoreMLGenerated\/accessory_classifier\/accessory_classifier.swift",
+      "kind": "Array",
+      "offset": 487,
+      "length": 9,
+      "value": "[\"image\"]"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
       "offset": 726,
       "length": 9,
       "value": "\"ic_logo\""
     },
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
       "offset": 864,
       "length": 12,
       "value": "\"ideal_pose\""
     },
     {
-      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/build\/DerivedData_sim\/Build\/Intermediates.noindex\/ArchiveIntermediates\/approval_ios\/IntermediateBuildFilesPath\/approval_ios.build\/Release-iphonesimulator\/approval_ios-t.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
       "offset": 1022,
       "length": 21,

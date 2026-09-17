@@ -6,7 +6,31 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		s4lZRCMjPgmw+z83WwXdbJtMnlM=
+		dvPprR54h8CXpv8ybihLw3X8F14=
+		</data>
+		<key>accessory_classifier.json</key>
+		<data>
+		Jy+1wVpaj+NjLEeK7uBGGd0jLbc=
+		</data>
+		<key>accessory_classifier.mlmodelc/analytics/coremldata.bin</key>
+		<data>
+		rVaMbuuTIZbyVHb0ZN38ZJapegI=
+		</data>
+		<key>accessory_classifier.mlmodelc/coremldata.bin</key>
+		<data>
+		UwGtdTZGBsHk6nMQIPAlj7nTFPM=
+		</data>
+		<key>accessory_classifier.mlmodelc/metadata.json</key>
+		<data>
+		gt2RkejtGgrXd3LlZ4Rkq7F4mgY=
+		</data>
+		<key>accessory_classifier.mlmodelc/model.mil</key>
+		<data>
+		z2f9mkKfo527T6vLDaKYk5t/k4Y=
+		</data>
+		<key>accessory_classifier.mlmodelc/weights/weight.bin</key>
+		<data>
+		e/ChCd4dvbfjRnYD0iT4nyKgwl0=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,7 +39,49 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			o0q9hP8OskEkjbJho+QBVRgZCPuft3zIcJEFHHXbS0A=
+			OCTjwRhRJov4+MzNo4coV2cjlqXlt11Cy4pjwup+59Y=
+			</data>
+		</dict>
+		<key>accessory_classifier.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bJ3NyVpa627E0xqXXYcQ89e/fDnzSBS+nUsyLzyMIA4=
+			</data>
+		</dict>
+		<key>accessory_classifier.mlmodelc/analytics/coremldata.bin</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gGivoX8QZPTaAzjktGPGGjnFkC0gL8dSDT2TR98Czu0=
+			</data>
+		</dict>
+		<key>accessory_classifier.mlmodelc/coremldata.bin</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iCz+hdJuQWw/mkM3QjBJFHCDG4yzFoJyctiTDYKvWms=
+			</data>
+		</dict>
+		<key>accessory_classifier.mlmodelc/metadata.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9w/LVLixPCEOA4p2TDmCkii0Gf52DHsZ/bXdXhtNF8A=
+			</data>
+		</dict>
+		<key>accessory_classifier.mlmodelc/model.mil</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XCuRKnwbUNmg5ovcGF9jH3Q0WkoP9HHyhNH6qsuvgnw=
+			</data>
+		</dict>
+		<key>accessory_classifier.mlmodelc/weights/weight.bin</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SkcN4FnwclMNL06iNBEfNV7bhNJluK0NJVr9az5tOoo=
 			</data>
 		</dict>
 	</dict>
