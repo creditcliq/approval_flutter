@@ -30,13 +30,9 @@ class VerificationHomeScreen extends StatefulWidget {
 }
 
 class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
-  final TextEditingController _apiKeyController = TextEditingController(
-    text: "vy6LZWI/l/pOc868z8LAgEBCdvsSomPev2TxLqIdlNZIueMM0Agl8G88zxyE65LN",
-  );
+  final TextEditingController _apiKeyController = TextEditingController();
 
-  final TextEditingController _sessionIdController = TextEditingController(
-    text: "bf1c5c9c-a09e-4361-922a-262bd42584f8",
-  );
+  final TextEditingController _sessionIdController = TextEditingController();
 
   ApprovalEnvironment _selectedEnvironment = ApprovalEnvironment.sandbox;
   String _statusMessage = 'Ready to verify';
@@ -48,7 +44,9 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
     final apiKey = _apiKeyController.text.trim();
     if (apiKey.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your CreditChek public key')),
+        const SnackBar(
+          content: Text('Please enter your CreditChek public key'),
+        ),
       );
       return;
     }
@@ -56,7 +54,9 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
     final sessionId = _sessionIdController.text.trim();
     if (sessionId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a session ID created by your backend')),
+        const SnackBar(
+          content: Text('Please enter a session ID created by your backend'),
+        ),
       );
       return;
     }
@@ -73,13 +73,6 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
         sessionId: sessionId,
         environment: _selectedEnvironment,
         modules: const [ApprovalModule.identity, ApprovalModule.liveliness],
-        userData: const AUserData(
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          // Optional prefilled BVN:
-          // bvn: '12345678901',
-        ),
       );
 
       final result = await ApprovalFlutter.start(config: config);
@@ -206,7 +199,8 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                           value: ApprovalEnvironment.sandbox,
                           groupValue: _selectedEnvironment,
                           onChanged: (val) {
-                            if (val != null) setState(() => _selectedEnvironment = val);
+                            if (val != null)
+                              setState(() => _selectedEnvironment = val);
                           },
                         ),
                       ),
@@ -216,7 +210,8 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                           value: ApprovalEnvironment.production,
                           groupValue: _selectedEnvironment,
                           onChanged: (val) {
-                            if (val != null) setState(() => _selectedEnvironment = val);
+                            if (val != null)
+                              setState(() => _selectedEnvironment = val);
                           },
                         ),
                       ),
@@ -240,9 +235,12 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                 child: _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text(
-                  'Start Verification',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                        'Start Verification',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
               ),
             ),
             const SizedBox(height: 24),
