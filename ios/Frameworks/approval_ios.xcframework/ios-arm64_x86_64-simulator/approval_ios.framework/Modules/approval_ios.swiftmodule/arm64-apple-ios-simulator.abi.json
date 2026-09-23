@@ -7509,22 +7509,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.String?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "usr": "s:Sq"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Var",
-            "usr": "s:12approval_ios14ApprovalConfigV9sessionIdSSSgvp",
-            "mangledName": "$s12approval_ios14ApprovalConfigV9sessionIdSSSgvp",
+            "usr": "s:12approval_ios14ApprovalConfigV9sessionIdSSvp",
+            "mangledName": "$s12approval_ios14ApprovalConfigV9sessionIdSSvp",
             "moduleName": "approval_ios",
             "declAttributes": [
               "HasStorage",
@@ -7540,22 +7532,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "usr": "s:Sq"
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:12approval_ios14ApprovalConfigV9sessionIdSSSgvg",
-                "mangledName": "$s12approval_ios14ApprovalConfigV9sessionIdSSSgvg",
+                "usr": "s:12approval_ios14ApprovalConfigV9sessionIdSSvg",
+                "mangledName": "$s12approval_ios14ApprovalConfigV9sessionIdSSvg",
                 "moduleName": "approval_ios",
                 "implicit": true,
                 "accessorKind": "get"
@@ -7655,18 +7639,9 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.String?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "hasDefaultArg": true,
-                "usr": "s:Sq"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               },
               {
                 "kind": "TypeNominal",
@@ -7677,8 +7652,8 @@
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:12approval_ios14ApprovalConfigV9publicKey7modules8userData9sessionId11environmentACSS_SayAA0C6ModuleOGAA05AUserI0VSgSSSgAA0C3EnvOtcfc",
-            "mangledName": "$s12approval_ios14ApprovalConfigV9publicKey7modules8userData9sessionId11environmentACSS_SayAA0C6ModuleOGAA05AUserI0VSgSSSgAA0C3EnvOtcfc",
+            "usr": "s:12approval_ios14ApprovalConfigV9publicKey7modules8userData9sessionId11environmentACSS_SayAA0C6ModuleOGAA05AUserI0VSgSSAA0C3EnvOtcfc",
+            "mangledName": "$s12approval_ios14ApprovalConfigV9publicKey7modules8userData9sessionId11environmentACSS_SayAA0C6ModuleOGAA05AUserI0VSgSSAA0C3EnvOtcfc",
             "moduleName": "approval_ios",
             "declAttributes": [
               "AccessControl"
@@ -17303,6 +17278,94 @@
           },
           {
             "kind": "Var",
+            "name": "status",
+            "printedName": "status",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios18SessionCreatedDataV6statusSSvp",
+            "mangledName": "$s12approval_ios18SessionCreatedDataV6statusSSvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios18SessionCreatedDataV6statusSSvg",
+                "mangledName": "$s12approval_ios18SessionCreatedDataV6statusSSvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "services",
+            "printedName": "services",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Services",
+                "printedName": "approval_ios.Services",
+                "usr": "s:12approval_ios8ServicesV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios18SessionCreatedDataV8servicesAA8ServicesVvp",
+            "mangledName": "$s12approval_ios18SessionCreatedDataV8servicesAA8ServicesVvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Services",
+                    "printedName": "approval_ios.Services",
+                    "usr": "s:12approval_ios8ServicesV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios18SessionCreatedDataV8servicesAA8ServicesVvg",
+                "mangledName": "$s12approval_ios18SessionCreatedDataV8servicesAA8ServicesVvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "id",
             "printedName": "id",
             "children": [
@@ -17460,6 +17523,328 @@
         "declKind": "Struct",
         "usr": "s:12approval_ios18SessionCreatedDataV",
         "mangledName": "$s12approval_ios18SessionCreatedDataV",
+        "moduleName": "approval_ios",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Services",
+        "printedName": "Services",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "bvn",
+            "printedName": "bvn",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ServiceStatus",
+                "printedName": "approval_ios.ServiceStatus",
+                "usr": "s:12approval_ios13ServiceStatusV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios8ServicesV3bvnAA13ServiceStatusVvp",
+            "mangledName": "$s12approval_ios8ServicesV3bvnAA13ServiceStatusVvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ServiceStatus",
+                    "printedName": "approval_ios.ServiceStatus",
+                    "usr": "s:12approval_ios13ServiceStatusV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios8ServicesV3bvnAA13ServiceStatusVvg",
+                "mangledName": "$s12approval_ios8ServicesV3bvnAA13ServiceStatusVvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "liveness",
+            "printedName": "liveness",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ServiceStatus",
+                "printedName": "approval_ios.ServiceStatus",
+                "usr": "s:12approval_ios13ServiceStatusV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios8ServicesV8livenessAA13ServiceStatusVvp",
+            "mangledName": "$s12approval_ios8ServicesV8livenessAA13ServiceStatusVvp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ServiceStatus",
+                    "printedName": "approval_ios.ServiceStatus",
+                    "usr": "s:12approval_ios13ServiceStatusV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios8ServicesV8livenessAA13ServiceStatusVvg",
+                "mangledName": "$s12approval_ios8ServicesV8livenessAA13ServiceStatusVvg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Services",
+                "printedName": "approval_ios.Services",
+                "usr": "s:12approval_ios8ServicesV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "any Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios8ServicesV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s12approval_ios8ServicesV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "approval_ios",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "any Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios8ServicesV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s12approval_ios8ServicesV6encode2toys7Encoder_p_tKF",
+            "moduleName": "approval_ios",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:12approval_ios8ServicesV",
+        "mangledName": "$s12approval_ios8ServicesV",
+        "moduleName": "approval_ios",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ServiceStatus",
+        "printedName": "ServiceStatus",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "status",
+            "printedName": "status",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SessionStatus",
+                "printedName": "approval_ios.SessionStatus",
+                "usr": "s:12approval_ios13SessionStatusO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12approval_ios13ServiceStatusV6statusAA07SessionD0Ovp",
+            "mangledName": "$s12approval_ios13ServiceStatusV6statusAA07SessionD0Ovp",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SessionStatus",
+                    "printedName": "approval_ios.SessionStatus",
+                    "usr": "s:12approval_ios13SessionStatusO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12approval_ios13ServiceStatusV6statusAA07SessionD0Ovg",
+                "mangledName": "$s12approval_ios13ServiceStatusV6statusAA07SessionD0Ovg",
+                "moduleName": "approval_ios",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ServiceStatus",
+                "printedName": "approval_ios.ServiceStatus",
+                "usr": "s:12approval_ios13ServiceStatusV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "any Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12approval_ios13ServiceStatusV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s12approval_ios13ServiceStatusV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "approval_ios",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "any Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios13ServiceStatusV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s12approval_ios13ServiceStatusV6encode2toys7Encoder_p_tKF",
+            "moduleName": "approval_ios",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:12approval_ios13ServiceStatusV",
+        "mangledName": "$s12approval_ios13ServiceStatusV",
         "moduleName": "approval_ios",
         "declAttributes": [
           "AccessControl"
@@ -18316,6 +18701,13 @@
         "declAttributes": [
           "RawDocComment"
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "approval_ios"
       },
       {
         "kind": "TypeDecl",
@@ -23922,55 +24314,6 @@
           },
           {
             "kind": "Function",
-            "name": "createSession",
-            "printedName": "createSession(publicKey:sessionId:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Result",
-                "printedName": "Swift.Result<approval_ios.SessionCreatedData, any Swift.Error>",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "SessionCreatedData",
-                    "printedName": "approval_ios.SessionCreatedData",
-                    "usr": "s:12approval_ios18SessionCreatedDataV"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Error",
-                    "printedName": "any Swift.Error",
-                    "usr": "s:s5ErrorP"
-                  }
-                ],
-                "usr": "s:s6ResultO"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12approval_ios18IdentityRepositoryC13createSession9publicKey9sessionIds6ResultOyAA0F11CreatedDataVs5Error_pGSS_SStYaF",
-            "mangledName": "$s12approval_ios18IdentityRepositoryC13createSession9publicKey9sessionIds6ResultOyAA0F11CreatedDataVs5Error_pGSS_SStYaF",
-            "moduleName": "approval_ios",
-            "declAttributes": [
-              "Final",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "verifyBvn",
             "printedName": "verifyBvn(secretKey:bvn:)",
             "children": [
@@ -24264,6 +24607,137 @@
             "usr": "s:12approval_ios18IdentityRepositoryC17getSessionBvnData9sessionId9secretKeys6ResultOyAA0G7DetailsVs5Error_pGSS_SStYaF",
             "mangledName": "$s12approval_ios18IdentityRepositoryC17getSessionBvnData9sessionId9secretKeys6ResultOyAA0G7DetailsVs5Error_pGSS_SStYaF",
             "moduleName": "approval_ios",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getWidgetSession",
+            "printedName": "getWidgetSession(sessionId:secretKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Result",
+                "printedName": "Swift.Result<approval_ios.SessionCreatedData, any Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SessionCreatedData",
+                    "printedName": "approval_ios.SessionCreatedData",
+                    "usr": "s:12approval_ios18SessionCreatedDataV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "any Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:s6ResultO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios18IdentityRepositoryC16getWidgetSession9sessionId9secretKeys6ResultOyAA0G11CreatedDataVs5Error_pGSS_SStYaF",
+            "mangledName": "$s12approval_ios18IdentityRepositoryC16getWidgetSession9sessionId9secretKeys6ResultOyAA0G11CreatedDataVs5Error_pGSS_SStYaF",
+            "moduleName": "approval_ios",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "extractErrorMessage",
+            "printedName": "extractErrorMessage(from:fallback:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios18IdentityRepositoryC19extractErrorMessage4from8fallbackSSs0F0_p_SStFZ",
+            "mangledName": "$s12approval_ios18IdentityRepositoryC19extractErrorMessage4from8fallbackSSs0F0_p_SStFZ",
+            "moduleName": "approval_ios",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "extractJsonErrorMessage",
+            "printedName": "extractJsonErrorMessage(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12approval_ios18IdentityRepositoryC23extractJsonErrorMessage4fromSSSgAF_tFZ",
+            "mangledName": "$s12approval_ios18IdentityRepositoryC23extractJsonErrorMessage4fromSSSgAF_tFZ",
+            "moduleName": "approval_ios",
+            "static": true,
             "declAttributes": [
               "Final",
               "AccessControl",
@@ -29937,7 +30411,7 @@
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/session\/ApprovalConfig.swift",
       "kind": "Array",
-      "offset": 1449,
+      "offset": 1433,
       "length": 2,
       "value": "[]"
     },
@@ -30469,7 +30943,7 @@
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/models\/SessionModel.swift",
       "kind": "StringLiteral",
-      "offset": 1700,
+      "offset": 1806,
       "length": 5,
       "value": "\"_id\""
     },
@@ -30483,58 +30957,79 @@
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1474,
+      "offset": 1500,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1524,
+      "offset": 1550,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1576,
+      "offset": 1602,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "StringLiteral",
-      "offset": 1627,
+      "offset": 1653,
       "length": 50,
       "value": "\"No obstructions: remove hats,\nglasses and masks\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1733,
+      "offset": 1759,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1782,
+      "offset": 1808,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "StringLiteral",
-      "offset": 1834,
+      "offset": 1860,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1947,
+      "offset": 1973,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
+      "kind": "StringLiteral",
+      "offset": 2023,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
+      "kind": "StringLiteral",
+      "offset": 2789,
+      "length": 19,
+      "value": "\"CREDITCHEK LOGGER\""
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/ApprovalIdentityFlowNavigator.swift",
+      "kind": "StringLiteral",
+      "offset": 2820,
+      "length": 11,
+      "value": "\"Debugging\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/presentation\/components\/ApprovalHeader.swift",
@@ -30679,9 +31174,16 @@
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/repository\/IdentityRepository.swift",
       "kind": "BooleanLiteral",
-      "offset": 4609,
+      "offset": 4807,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/repository\/IdentityRepository.swift",
+      "kind": "StringLiteral",
+      "offset": 8797,
+      "length": 16,
+      "value": "\"Request failed\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/features\/identity\/repository\/IdentitySessionContext.swift",

@@ -31,7 +31,11 @@ class VerificationHomeScreen extends StatefulWidget {
 
 class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
   final TextEditingController _apiKeyController = TextEditingController(
-    text: "vy6LZWI/l/pOc868z8LAgEBCdvsSomPev2TxLqIdlNZIueMM0Agl8G88zxyE65LN" //'test_pk_live_or_sandbox_key_here',
+    text: "vy6LZWI/l/pOc868z8LAgEBCdvsSomPev2TxLqIdlNZIueMM0Agl8G88zxyE65LN",
+  );
+
+  final TextEditingController _sessionIdController = TextEditingController(
+    text: "bf1c5c9c-a09e-4361-922a-262bd42584f8",
   );
 
   ApprovalEnvironment _selectedEnvironment = ApprovalEnvironment.sandbox;
@@ -49,6 +53,14 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
       return;
     }
 
+    final sessionId = _sessionIdController.text.trim();
+    if (sessionId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a session ID created by your backend')),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _statusMessage = 'Launching verification...';
@@ -58,7 +70,9 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
     try {
       final config = ApprovalConfig(
         publicKey: apiKey,
+        sessionId: sessionId,
         environment: _selectedEnvironment,
+        modules: const [ApprovalModule.identity, ApprovalModule.liveliness],
         userData: const AUserData(
           firstName: 'John',
           lastName: 'Doe',
@@ -170,6 +184,15 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                     decoration: const InputDecoration(
                       labelText: 'Public Key',
                       hintText: 'Enter your CreditChek public key',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _sessionIdController,
+                    decoration: const InputDecoration(
+                      labelText: 'Session ID',
+                      hintText: 'Enter session UUID created by your backend',
                       border: OutlineInputBorder(),
                     ),
                   ),

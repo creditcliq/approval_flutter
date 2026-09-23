@@ -7,15 +7,11 @@
 ## Table of Contents
 1. [Architecture & Project Layout](#1-architecture--project-layout)
 2. [Understanding AAR & Transitive Dependencies](#2-understanding-aar--transitive-dependencies)
-3. [Workflow 1: Local Maven (`publishToMavenLocal`) — Recommended](#3-workflow-1-local-maven-publishtomavenlocal--recommended)
-   - [A. Using Android Studio (GUI)](#a-using-android-studio-gui)
-   - [B. Using Terminal (CLI)](#b-using-terminal-cli)
+3. [Workflow 1: GitHub & JitPack Distribution (Recommended & Deployed)](#3-workflow-1-github--jitpack-distribution-recommended--deployed)
+   - [A. Publishing a Release via Git Tag](#a-publishing-a-release-via-git-tag)
+   - [B. Verifying Build on JitPack](#b-verifying-build-on-jitpack)
    - [C. Consuming in Flutter Plugin](#c-consuming-in-flutter-plugin)
-   - [D. Continuous Update & Cache Invalidation](#d-continuous-update--cache-invalidation)
-4. [Workflow 2: Direct AAR Binary Drop (`libs/approval_android.aar`)](#4-workflow-2-direct-aar-binary-drop-libsapproval_androidaar)
-   - [A. Build AAR via Studio or Terminal](#a-build-aar-via-studio-or-terminal)
-   - [B. Copy to Flutter Plugin & Configure Gradle](#b-copy-to-flutter-plugin--configure-gradle)
-   - [C. Handling Transitive Dependencies](#c-handling-transitive-dependencies)
+4. [Workflow 2: Local Maven (`publishToMavenLocal`) for Fast Local Development](#4-workflow-2-local-maven-publishtomavenlocal-for-fast-local-development)
 5. [Workflow 3: Composite Build (`includeBuild`) — Instant Live Iteration](#5-workflow-3-composite-build-includebuild--instant-live-iteration)
 6. [Step-by-Step Continuous Testing Cycle](#6-step-by-step-continuous-testing-cycle)
 7. [Hot Reload vs. Native Recompilation](#7-hot-reload-vs-native-recompilation)
@@ -29,16 +25,16 @@ The repository contains distinct layers that communicate through Gradle and Flut
 
 ```
 approval/
-├── approval_android/             <-- Native Android Library Project
-│   ├── approval_android/         <-- Core SDK module (:approval_android) -> outputs AAR
+├── approval_android/             <-- Native Android Library Project (deployed to GitHub & JitPack)
+│   ├── approval_android/         <-- Core SDK module (:approval_android) -> outputs AAR via JitPack
 │   │   ├── src/main/kotlin/      <-- Jetpack Compose, CameraX, ML Kit Face Detection
-│   │   └── build.gradle.kts      <-- maven-publish & Android library config
+│   │   └── build.gradle.kts      <-- maven-publish & JitPack config
 │   └── app/                      <-- Native Android sample app for testing
 │
 └── approval_flutter/             <-- Flutter Plugin Project
     ├── android/                  <-- Flutter Android bridge (:approval_flutter)
     │   ├── src/main/kotlin/.../ApprovalFlutterPlugin.kt  <-- MethodChannel implementation
-    │   └── build.gradle.kts      <-- Depends on com.github.creditcliq:approval_android
+    │   └── build.gradle.kts      <-- Depends on com.github.creditcliq:approval_android (JitPack)
     ├── lib/                      <-- Dart Plugin API
     └── example/                  <-- Flutter Host Application for end-to-end testing
         ├── android/              <-- Host Android App (loads Flutter + Plugins)
@@ -50,86 +46,21 @@ approval/
 ## 2. Understanding AAR & Transitive Dependencies
 
 > [!IMPORTANT]
-> **Why raw AAR files can be tricky:**
+> **Why JitPack / Maven Publishing is Critical:**
 > A raw `.aar` file only bundles compiled classes and resources of the *immediate* module. It does **NOT** bundle third-party libraries that the SDK depends on (such as CameraX, Google ML Kit Face Detection, Retrofit, and Jetpack Compose).
 > 
-> - If you drop a raw `.aar` into `libs/`, Gradle will not automatically know about those dependencies unless you declare a Maven POM or manually re-declare every transitive dependency in the plugin.
-> - **Therefore, Workflow 1 (`publishToMavenLocal`) is the industry-standard best practice**, as it generates the `.aar` along with its `.pom` file that automatically resolves all dependencies for Flutter.
+> - By publishing to **GitHub + JitPack**, JitPack automatically runs the `maven-publish` Gradle task to produce a complete `.aar` and corresponding `pom.xml`.
+> - The POM file tells Gradle in the Flutter plugin and host app exactly which dependencies to download automatically.
 
 ---
 
-## 3. Workflow 1: Local Maven (`publishToMavenLocal`) — Recommended
+## 3. Workflow 1: GitHub & JitPack Distribution (Recommended & Deployed)
 
-This workflow builds the `.aar` and publishes it along with its dependency metadata (`pom.xml`) into your local Maven cache (`~/.m2/repository`).
+The native SDK is actively deployed to GitHub at `https://github.com/creditcliq/approval_android` and served via JitPack.
 
-### A. Using Android Studio (GUI)
+### A. Publishing a Release via Git Tag
 
-1. Open `/Users/marvel/Documents/flutter/approval/approval_android` in **Android Studio**.
-2. Open the **Gradle** tool window on the right sidebar.
-3. Expand:
-   `approval_android` ➔ `:approval_android` ➔ `Tasks` ➔ `publishing`.
-4. Double-click **`publishToMavenLocal`** (or `publishReleasePublicationToMavenLocal`).
-5. Wait for the build to finish. You should see `BUILD SUCCESSFUL` in the Run / Build console.
-
-![Gradle Tool Window](https://developer.android.com/static/studio/images/build/gradle-tool-window.png)
-
-### B. Using Terminal (CLI)
-
-From the root of `approval_android`:
-
-```bash
-cd /Users/marvel/Documents/flutter/approval/approval_android
-
-# Make sure Gradle wrapper is executable
-chmod +x gradlew
-
-# Publish the library module to local Maven (~/.m2/repository)
-./gradlew :approval_android:publishToMavenLocal
-```
-
-**Where the artifact goes:**
-```
-~/.m2/repository/com/github/creditcliq/approval_android/1.0.0/
-├── approval_android-1.0.0.aar
-├── approval_android-1.0.0.pom
-└── approval_android-1.0.0-sources.jar
-```
-
-### C. Consuming in Flutter Plugin
-
-In `approval_flutter/android/build.gradle.kts`:
-
-1. Ensure `mavenLocal()` is placed at the top of your repositories:
-
-```kotlin
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal() // <--- Local Maven repository must be listed here
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
-
-2. Point the dependency to the published coordinates:
-
-```kotlin
-dependencies {
-    // CreditChek Approval Android Native SDK (pulled from ~/.m2/repository)
-    implementation("com.github.creditcliq:approval_android:1.0.0")
-
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.mockito:mockito-core:5.0.0")
-}
-```
-
-### D. Continuous Update & Cache Invalidation
-
-When you modify Kotlin code in `approval_android` and re-publish, Gradle may cache the existing version if it doesn't know it changed. Use one of these two strategies:
-
-#### Strategy 1: Use `SNAPSHOT` versions during active development (Best Practice)
-In `approval_android/approval_android/build.gradle.kts`:
+1. In `approval_android/approval_android/build.gradle.kts`, ensure the publication version is updated:
 ```kotlin
 publishing {
     publications {
@@ -137,7 +68,81 @@ publishing {
             from(components["release"])
             groupId = "com.github.creditcliq"
             artifactId = "approval_android"
-            version = "1.0.1-SNAPSHOT" // <--- Mark as SNAPSHOT
+            version = "1.0.0+1" // Set your release version / tag
+        }
+    }
+}
+```
+
+2. Commit and push your changes to GitHub:
+```bash
+cd /Users/marvel/Documents/flutter/approval/approval_android
+git add .
+git commit -m "feat: release 1.0.0+1 with backend session support"
+git push origin main
+```
+
+3. Tag the commit and push the tag:
+```bash
+git tag 1.0.0+1
+git push origin 1.0.0+1
+```
+
+### B. Verifying Build on JitPack
+
+1. Open **[https://jitpack.io/#creditcliq/approval_android](https://jitpack.io/#creditcliq/approval_android)**.
+2. Look for tag `1.0.0+1`.
+3. If the status icon is green (Log/Report), the AAR and POM were built successfully and are ready for download.
+
+### C. Consuming in Flutter Plugin
+
+In `approval_flutter/android/build.gradle.kts`:
+
+1. Ensure `https://jitpack.io` is listed under repositories:
+```kotlin
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+2. Reference the published JitPack coordinates:
+```kotlin
+dependencies {
+    // CreditChek Approval Android Native SDK from GitHub via JitPack
+    implementation("com.github.creditcliq:approval_android:1.0.0+1")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("org.mockito:mockito-core:5.0.0")
+}
+```
+
+---
+
+## 4. Workflow 2: Local Maven (`publishToMavenLocal`) for Fast Local Development
+
+When iterating locally without wanting to push git tags on every tweak, you can publish to your machine's local Maven cache (`~/.m2/repository`).
+
+### A. Using Terminal (CLI)
+From the root of `approval_android`:
+```bash
+cd /Users/marvel/Documents/flutter/approval/approval_android
+./gradlew :approval_android:publishToMavenLocal
+```
+
+### B. Consuming Locally in Flutter Plugin
+Temporarily add `mavenLocal()` at the top of repositories in `approval_flutter/android/build.gradle.kts`:
+```kotlin
+repositories {
+    mavenLocal() // <--- Check local machine first
+    google()
+    mavenCentral()
+    maven { url = uri("https://jitpack.io") }
+}
+```
         }
     }
 }

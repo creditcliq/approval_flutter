@@ -20,6 +20,7 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+import os
 @_Concurrency::MainActor @preconcurrency public struct ApprovalView : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let config: approval_ios::ApprovalConfig
   @_Concurrency::MainActor @preconcurrency public let onFinishWithResult: (approval_ios::SessionResult) -> Swift::Void
@@ -216,9 +217,9 @@ public struct ApprovalConfig : Swift::Codable {
   public let publicKey: Swift::String
   public let modules: [approval_ios::ApprovalModule]
   public let userData: approval_ios::AUserData?
-  public let sessionId: Swift::String?
+  public let sessionId: Swift::String
   public let environment: approval_ios::ApprovalEnv
-  public init(publicKey: Swift::String, modules: [approval_ios::ApprovalModule] = [], userData: approval_ios::AUserData? = nil, sessionId: Swift::String? = nil, environment: approval_ios::ApprovalEnv = .sandbox)
+  public init(publicKey: Swift::String, modules: [approval_ios::ApprovalModule] = [], userData: approval_ios::AUserData? = nil, sessionId: Swift::String, environment: approval_ios::ApprovalEnv = .sandbox)
   public func validate() throws
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
@@ -517,8 +518,21 @@ public struct SessionCreatedResponse : Swift::Codable {
 public struct SessionCreatedData : Swift::Codable {
   public let publicKey: Swift::String
   public let sessionId: Swift::String
+  public let status: Swift::String
+  public let services: approval_ios::Services
   public let id: Swift::String
   public let expiresAt: Swift::String?
+  public func encode(to encoder: any Swift::Encoder) throws
+  public init(from decoder: any Swift::Decoder) throws
+}
+public struct Services : Swift::Codable {
+  public let bvn: approval_ios::ServiceStatus
+  public let liveness: approval_ios::ServiceStatus
+  public func encode(to encoder: any Swift::Encoder) throws
+  public init(from decoder: any Swift::Decoder) throws
+}
+public struct ServiceStatus : Swift::Codable {
+  public let status: approval_ios::Status
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
@@ -690,12 +704,14 @@ public struct BitmapUtils {
 final public class IdentityRepository : Swift::Sendable {
   public init(environment: approval_ios::ApprovalEnv = .sandbox)
   final public func validatePublicKey(publicKey: Swift::String) async -> Swift::Result<approval_ios::ValidKeyData, any Swift::Error>
-  final public func createSession(publicKey: Swift::String, sessionId: Swift::String) async -> Swift::Result<approval_ios::SessionCreatedData, any Swift::Error>
   final public func verifyBvn(secretKey: Swift::String, bvn: Swift::String) async -> Swift::Result<approval_ios::BvnDetails, any Swift::Error>
   final public func updateSessionWithBvn(sessionId: Swift::String, secretKey: Swift::String, bvn: Swift::String? = nil, status: approval_ios::SessionStatus? = nil, service: approval_ios::SessionService? = nil) async -> Swift::Result<Swift::Void, any Swift::Error>
   final public func verifyChallenge(accessToken: Swift::String, bvnImage: Swift::String, step: Swift::String, sessionId: Swift::String, frame: Swift::String, restart: Swift::Bool = false) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>
   final public func checkLivenessHealth() async -> Swift::Result<Swift::Bool, any Swift::Error>
   final public func getSessionBvnData(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::BvnDetails, any Swift::Error>
+  final public func getWidgetSession(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::SessionCreatedData, any Swift::Error>
+  public static func extractErrorMessage(from error: any Swift::Error, fallback: Swift::String = "Request failed") -> Swift::String
+  public static func extractJsonErrorMessage(from jsonString: Swift::String?) -> Swift::String?
   @objc deinit
 }
 public struct AnyCodable : Swift::Codable, Swift::Sendable {
