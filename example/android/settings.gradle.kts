@@ -30,7 +30,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal() // <--- Ensures example app resolves your local AAR
         maven { url = uri("https://jitpack.io") }
     }
 }
