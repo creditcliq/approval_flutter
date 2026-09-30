@@ -1,0 +1,72 @@
+[
+  {
+    "metadataOutputVersion" : "3.0",
+    "storagePrecision" : "Float16",
+    "outputSchema" : [
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32 1 × 2)",
+        "shortDescription" : "",
+        "shape" : "[1, 2]",
+        "name" : "Identity",
+        "type" : "MultiArray"
+      }
+    ],
+    "modelParameters" : [
+
+    ],
+    "specificationVersion" : 6,
+    "mlProgramOperationTypeHistogram" : {
+      "Relu6" : 27,
+      "Linear" : 1,
+      "Cast" : 2,
+      "Conv" : 52,
+      "Pad" : 4,
+      "Relu" : 14,
+      "Mul" : 55,
+      "Add" : 25,
+      "Transpose" : 1,
+      "Sigmoid" : 1,
+      "ReduceMean" : 10
+    },
+    "computePrecision" : "Mixed (Float16, Float32, Int32)",
+    "isUpdatable" : "0",
+    "stateSchema" : [
+
+    ],
+    "availability" : {
+      "macOS" : "12.0",
+      "tvOS" : "15.0",
+      "visionOS" : "1.0",
+      "watchOS" : "8.0",
+      "iOS" : "15.0",
+      "macCatalyst" : "15.0"
+    },
+    "modelType" : {
+      "name" : "MLModelType_mlProgram"
+    },
+    "userDefinedMetadata" : {
+      "com.github.apple.coremltools.version" : "9.0",
+      "com.github.apple.coremltools.source" : "tensorflow==2.20.0",
+      "com.github.apple.coremltools.conversion_date" : "2026-09-17"
+    },
+    "inputSchema" : [
+      {
+        "height" : "160",
+        "colorspace" : "RGB",
+        "isOptional" : "0",
+        "width" : "160",
+        "isColor" : "1",
+        "formattedType" : "Image (Color 160 × 160)",
+        "hasSizeFlexibility" : "0",
+        "type" : "Image",
+        "shortDescription" : "",
+        "name" : "image"
+      }
+    ],
+    "generatedClassName" : "accessory_classifier",
+    "method" : "predict"
+  }
+]

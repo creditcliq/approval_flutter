@@ -5,6 +5,7 @@
 @preconcurrency import AVFoundation
 import Combine
 import CoreImage
+@preconcurrency import CoreML
 @preconcurrency import CoreTelephony
 import DeveloperToolsSupport
 import Foundation
@@ -19,6 +20,7 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+import os
 @_Concurrency::MainActor @preconcurrency public struct ApprovalView : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let config: approval_ios::ApprovalConfig
   @_Concurrency::MainActor @preconcurrency public let onFinishWithResult: (approval_ios::SessionResult) -> Swift::Void
@@ -30,6 +32,20 @@ import _SwiftConcurrencyShims
 }
 @_hasMissingDesignatedInitializers @_Concurrency::MainActor final public class CreditChekApproval {
   @_Concurrency::MainActor public static func start(from presenter: UIKit::UIViewController? = nil, config: approval_ios::ApprovalConfig, onResult: @escaping (approval_ios::SessionResult) -> Swift::Void)
+  @objc deinit
+}
+public struct AccessoryClassificationResult : Swift::Sendable {
+  public let hasGlasses: Swift::Bool
+  public let hasHeadwear: Swift::Bool
+  public let glassesConfidence: Swift::Float
+  public let headwearConfidence: Swift::Float
+  public init(hasGlasses: Swift::Bool, hasHeadwear: Swift::Bool, glassesConfidence: Swift::Float, headwearConfidence: Swift::Float)
+}
+final public class AccessoryClassifierEngine : @unchecked Swift::Sendable {
+  public init()
+  final public func classify(pixelBuffer: CoreVideo::CVPixelBuffer) -> approval_ios::AccessoryClassificationResult?
+  final public func resetState()
+  final public func close()
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @_Concurrency::MainActor final public class ApprovalTtsEngine : ObjectiveC::NSObject, Combine::ObservableObject, AVFAudio::AVSpeechSynthesizerDelegate {
@@ -47,6 +63,8 @@ public struct LivelinessState : Swift::Sendable {
   public var isLowLight: Swift::Bool
   public var isTooClose: Swift::Bool
   public var isTooFar: Swift::Bool
+  public var hasGlasses: Swift::Bool
+  public var hasHeadwear: Swift::Bool
   public var currentStepIndex: Swift::Int
   public var currentStep: approval_ios::FaceVerificationStep
   public var totalSteps: Swift::Int
@@ -95,12 +113,12 @@ public struct LivelinessState : Swift::Sendable {
   @objc deinit
 }
 public struct ApiConstants {
-  public static let devBaseUrl: Swift::String
   public static let prodBaseUrl: Swift::String
   public static let validatePublicKey: Swift::String
   public static let createWidgetSession: Swift::String
   public static let widgetSession: Swift::String
   public static let sessionBvnData: Swift::String
+  public static let sessionNinData: Swift::String
   public static let verifyIdentityData: Swift::String
   public static let livenessHealth: Swift::String
   public static let livenessVerifyChallenge: Swift::String
@@ -153,7 +171,7 @@ public enum NetworkError : Foundation::LocalizedError, Swift::Sendable {
   }
 }
 final public class URLSessionClient : Swift::Sendable {
-  public init(environment: approval_ios::ApprovalEnv = .sandbox)
+  public init(environment: approval_ios::ApprovalEnv = .production)
   final public func request<T, B>(endpoint: Swift::String, method: Swift::String = "POST", body: B? = nil, headers: [Swift::String : Swift::String] = [:]) async throws -> T where T : Swift::Decodable, B : Swift::Encodable
   @objc deinit
 }
@@ -161,10 +179,11 @@ public struct AUserData : Swift::Codable, Swift::Hashable {
   public var firstName: Swift::String
   public var lastName: Swift::String
   public var bvn: Swift::String
+  public var nin: Swift::String
   public var email: Swift::String
   public var dateOfBirth: Swift::String?
   public var phone: Swift::String?
-  public init(firstName: Swift::String = "", lastName: Swift::String = "", bvn: Swift::String = "", email: Swift::String = "", dateOfBirth: Swift::String? = nil, phone: Swift::String? = nil)
+  public init(firstName: Swift::String = "", lastName: Swift::String = "", bvn: Swift::String = "", nin: Swift::String = "", email: Swift::String = "", dateOfBirth: Swift::String? = nil, phone: Swift::String? = nil)
   public static func == (a: approval_ios::AUserData, b: approval_ios::AUserData) -> Swift::Bool
   public func encode(to encoder: any Swift::Encoder) throws
   public func hash(into hasher: inout Swift::Hasher)
@@ -174,8 +193,11 @@ public struct AUserData : Swift::Codable, Swift::Hashable {
   public init(from decoder: any Swift::Decoder) throws
 }
 public enum ApprovalEnv : Swift::String, Swift::Codable, Swift::Sendable {
-  case sandbox
+  case development
   case production
+  public var isDevelopment: Swift::Bool {
+    get
+  }
   public init?(rawValue: Swift::String)
   public typealias RawValue = Swift::String
   public var rawValue: Swift::String {
@@ -199,9 +221,9 @@ public struct ApprovalConfig : Swift::Codable {
   public let publicKey: Swift::String
   public let modules: [approval_ios::ApprovalModule]
   public let userData: approval_ios::AUserData?
-  public let sessionId: Swift::String?
+  public let sessionId: Swift::String
   public let environment: approval_ios::ApprovalEnv
-  public init(publicKey: Swift::String, modules: [approval_ios::ApprovalModule] = [], userData: approval_ios::AUserData? = nil, sessionId: Swift::String? = nil, environment: approval_ios::ApprovalEnv = .sandbox)
+  public init(publicKey: Swift::String, modules: [approval_ios::ApprovalModule] = [], userData: approval_ios::AUserData? = nil, sessionId: Swift::String, environment: approval_ios::ApprovalEnv = .production)
   public func validate() throws
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
@@ -273,6 +295,13 @@ public enum SessionResult {
     get
   }
   public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios16DashedBorderCardV4bodyQrvp", 0) __<Content>
+}
+@_Concurrency::MainActor @preconcurrency public struct DevelopmentDecoration : SwiftUICore::View {
+  @_Concurrency::MainActor @preconcurrency public init()
+  @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios21DevelopmentDecorationV4bodyQrvp", 0) __
 }
 @_Concurrency::MainActor final public class ToastState : Combine::ObservableObject {
   @Combine::Published<Swift::Bool> @_projectedValueProperty($isVisible) @_Concurrency::MainActor final public var isVisible: Swift::Bool {
@@ -373,10 +402,14 @@ extension SwiftUICore::Font {
   public static let approvalLabelLarge: SwiftUICore::Font
   public static let approvalLabelMedium: SwiftUICore::Font
 }
-public struct BvnResponse : Swift::Codable {
+public struct BvnResponse : Swift::Codable, Swift::Sendable {
   public var status: Swift::Bool?
+  public var success: Swift::Bool?
   public var message: Swift::String?
   public var data: approval_ios::BvnDetails?
+  public var isSuccessful: Swift::Bool {
+    get
+  }
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
@@ -390,6 +423,30 @@ public struct BvnDetails : Swift::Codable, Swift::Sendable {
   public var gender: Swift::String?
   public var phones: [Swift::String]?
   public init(bvn: Swift::String? = nil, firstName: Swift::String? = nil, lastName: Swift::String? = nil, middleName: Swift::String? = nil, dateOfBirth: Swift::String? = nil, photo: Swift::String? = nil, gender: Swift::String? = nil, phones: [Swift::String]? = nil)
+  public init(from decoder: any Swift::Decoder) throws
+  public func encode(to encoder: any Swift::Encoder) throws
+}
+public struct NinResponse : Swift::Codable, Swift::Sendable {
+  public var status: Swift::Bool?
+  public var success: Swift::Bool?
+  public var message: Swift::String?
+  public var data: approval_ios::NinDetails?
+  public var isSuccessful: Swift::Bool {
+    get
+  }
+  public func encode(to encoder: any Swift::Encoder) throws
+  public init(from decoder: any Swift::Decoder) throws
+}
+public struct NinDetails : Swift::Codable, Swift::Sendable {
+  public var nin: Swift::String?
+  public var firstName: Swift::String?
+  public var lastName: Swift::String?
+  public var middleName: Swift::String?
+  public var dateOfBirth: Swift::String?
+  public var photo: Swift::String?
+  public var gender: Swift::String?
+  public var telephoneNo: Swift::String?
+  public init(nin: Swift::String? = nil, firstName: Swift::String? = nil, lastName: Swift::String? = nil, middleName: Swift::String? = nil, dateOfBirth: Swift::String? = nil, photo: Swift::String? = nil, gender: Swift::String? = nil, telephoneNo: Swift::String? = nil)
   public init(from decoder: any Swift::Decoder) throws
   public func encode(to encoder: any Swift::Encoder) throws
 }
@@ -427,7 +484,9 @@ public struct ChallengeVerifyRequest : Swift::Codable, Swift::Sendable {
   public let sessionId: Swift::String
   public let frame: Swift::String
   public let restart: Swift::Bool
-  public init(bvnImage: Swift::String, step: Swift::String, sessionId: Swift::String, frame: Swift::String, restart: Swift::Bool = false)
+  public let idType: Swift::String?
+  public let environment: Swift::String?
+  public init(bvnImage: Swift::String, step: Swift::String, sessionId: Swift::String, frame: Swift::String, restart: Swift::Bool = false, idType: Swift::String? = nil, environment: Swift::String? = nil)
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
@@ -473,6 +532,7 @@ public enum SessionStatus : Swift::String, Swift::Codable, Swift::Sendable {
 }
 public enum SessionService : Swift::String, Swift::Codable, Swift::Sendable {
   case bvn
+  case nin
   case liveliness
   public init?(rawValue: Swift::String)
   public typealias RawValue = Swift::String
@@ -484,24 +544,39 @@ public typealias Status = approval_ios::SessionStatus
 public typealias Service = approval_ios::SessionService
 public struct UpdateSessionRequest : Swift::Codable, Swift::Sendable {
   public let bvn: Swift::String?
+  public let nin: Swift::String?
   public let service: approval_ios::SessionService?
   public let status: approval_ios::SessionStatus?
-  public init(bvn: Swift::String? = nil, service: approval_ios::SessionService? = nil, status: approval_ios::SessionStatus? = nil)
+  public init(bvn: Swift::String? = nil, nin: Swift::String? = nil, service: approval_ios::SessionService? = nil, status: approval_ios::SessionStatus? = nil)
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
-public struct SessionCreatedResponse : Swift::Codable {
+public struct SessionCreatedResponse : Swift::Codable, Swift::Sendable {
   public let success: Swift::Bool
   public let message: Swift::String?
   public let data: approval_ios::SessionCreatedData?
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
-public struct SessionCreatedData : Swift::Codable {
+public struct SessionCreatedData : Swift::Codable, Swift::Sendable {
   public let publicKey: Swift::String
   public let sessionId: Swift::String
+  public let status: Swift::String
+  public let services: approval_ios::Services
   public let id: Swift::String
   public let expiresAt: Swift::String?
+  public func encode(to encoder: any Swift::Encoder) throws
+  public init(from decoder: any Swift::Decoder) throws
+}
+public struct Services : Swift::Codable, Swift::Sendable {
+  public let bvn: approval_ios::ServiceStatus?
+  public let nin: approval_ios::ServiceStatus?
+  public let liveness: approval_ios::ServiceStatus?
+  public func encode(to encoder: any Swift::Encoder) throws
+  public init(from decoder: any Swift::Decoder) throws
+}
+public struct ServiceStatus : Swift::Codable, Swift::Sendable {
+  public let status: approval_ios::Status
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
@@ -535,7 +610,9 @@ public enum ApprovalStep : Swift::Sendable, Swift::Equatable {
     case splash
     case error
     case welcome
+    case verificationMethod
     case bvnCheck
+    case ninCheck
     case success
     case liveliness
     public static func == (a: approval_ios::ApprovalStep.approval_ios::IdentityStep, b: approval_ios::ApprovalStep.approval_ios::IdentityStep) -> Swift::Bool
@@ -610,7 +687,8 @@ public enum ApprovalStep : Swift::Sendable, Swift::Equatable {
   @_Concurrency::MainActor @preconcurrency public var actionLabel: Swift::String
   @_Concurrency::MainActor @preconcurrency public let onDismiss: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public var onRetry: (() -> Swift::Void)?
-  @_Concurrency::MainActor @preconcurrency public init(title: Swift::String, message: Swift::String, actionLabel: Swift::String = "Close", onDismiss: @escaping () -> Swift::Void, onRetry: (() -> Swift::Void)? = nil)
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public init(title: Swift::String, message: Swift::String, actionLabel: Swift::String = "Close", isDevelopment: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onRetry: (() -> Swift::Void)? = nil)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
@@ -621,11 +699,24 @@ public enum ApprovalStep : Swift::Sendable, Swift::Equatable {
   @_Concurrency::MainActor @preconcurrency public var isLoading: Swift::Bool
   @_Concurrency::MainActor @preconcurrency public let onBack: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onProceed: (Swift::String, Swift::String, Swift::String, Swift::String) -> Swift::Void
-  @_Concurrency::MainActor @preconcurrency public init(initialUserData: approval_ios::AUserData? = nil, isLoading: Swift::Bool = false, onBack: @escaping () -> Swift::Void, onProceed: @escaping (Swift::String, Swift::String, Swift::String, Swift::String) -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public init(initialUserData: approval_ios::AUserData? = nil, isLoading: Swift::Bool = false, isDevelopment: Swift::Bool = false, onBack: @escaping () -> Swift::Void, onProceed: @escaping (Swift::String, Swift::String, Swift::String, Swift::String) -> Swift::Void)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
   public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios14BvnCheckScreenV4bodyQrvp", 0) __
+}
+@_Concurrency::MainActor @preconcurrency public struct NinCheckScreen : SwiftUICore::View {
+  @_Concurrency::MainActor @preconcurrency public var initialUserData: approval_ios::AUserData?
+  @_Concurrency::MainActor @preconcurrency public var isLoading: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public let onBack: () -> Swift::Void
+  @_Concurrency::MainActor @preconcurrency public let onProceed: (Swift::String, Swift::String, Swift::String, Swift::String) -> Swift::Void
+  @_Concurrency::MainActor @preconcurrency public init(initialUserData: approval_ios::AUserData? = nil, isLoading: Swift::Bool = false, isDevelopment: Swift::Bool = false, onBack: @escaping () -> Swift::Void, onProceed: @escaping (Swift::String, Swift::String, Swift::String, Swift::String) -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios14NinCheckScreenV4bodyQrvp", 0) __
 }
 @_Concurrency::MainActor @preconcurrency public struct SplashScreen : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let onValidationSuccess: () -> Swift::Void
@@ -637,12 +728,47 @@ public enum ApprovalStep : Swift::Sendable, Swift::Equatable {
   }
   public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios12SplashScreenV4bodyQrvp", 0) __
 }
+public enum VerificationDocument : Swift::String, Swift::CaseIterable, Swift::Identifiable {
+  case bvn
+  case nin
+  public var id: Swift::String {
+    get
+  }
+  public var key: Swift::String {
+    get
+  }
+  public var title: Swift::String {
+    get
+  }
+  public init?(rawValue: Swift::String)
+  public typealias AllCases = [approval_ios::VerificationDocument]
+  public typealias ID = Swift::String
+  public typealias RawValue = Swift::String
+  nonisolated public static var allCases: [approval_ios::VerificationDocument] {
+    get
+  }
+  public var rawValue: Swift::String {
+    get
+  }
+}
+@_Concurrency::MainActor @preconcurrency public struct VerificationMethodScreen : SwiftUICore::View {
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public var selectedMethod: Swift::String?
+  @_Concurrency::MainActor @preconcurrency public let onBack: () -> Swift::Void
+  @_Concurrency::MainActor @preconcurrency public let onProceed: (Swift::String) -> Swift::Void
+  @_Concurrency::MainActor @preconcurrency public init(isDevelopment: Swift::Bool = false, selectedMethod: Swift::String? = nil, onBack: @escaping () -> Swift::Void, onProceed: @escaping (Swift::String) -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios24VerificationMethodScreenV4bodyQrvp", 0) __
+}
 @_Concurrency::MainActor @preconcurrency public struct VerificationProcessingScreen : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let onDismiss: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onSuccess: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onFailure: () -> Swift::Void
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
   @_Concurrency::MainActor @preconcurrency public var verifyAction: (() async -> Swift::Bool)?
-  @_Concurrency::MainActor @preconcurrency public init(onDismiss: @escaping () -> Swift::Void, onSuccess: @escaping () -> Swift::Void, onFailure: @escaping () -> Swift::Void, verifyAction: (() async -> Swift::Bool)? = nil)
+  @_Concurrency::MainActor @preconcurrency public init(onDismiss: @escaping () -> Swift::Void, onSuccess: @escaping () -> Swift::Void, onFailure: @escaping () -> Swift::Void, isDevelopment: Swift::Bool = false, verifyAction: (() async -> Swift::Bool)? = nil)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
@@ -651,7 +777,8 @@ public enum ApprovalStep : Swift::Sendable, Swift::Equatable {
 @_Concurrency::MainActor @preconcurrency public struct VerificationSuccessScreen : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let onDismiss: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onProceed: () -> Swift::Void
-  @_Concurrency::MainActor @preconcurrency public init(onDismiss: @escaping () -> Swift::Void, onProceed: @escaping () -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public init(isDevelopment: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onProceed: @escaping () -> Swift::Void)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
@@ -659,9 +786,10 @@ public enum ApprovalStep : Swift::Sendable, Swift::Equatable {
 }
 @_Concurrency::MainActor @preconcurrency public struct WelcomeScreen : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public var isLoading: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
   @_Concurrency::MainActor @preconcurrency public let onStartVerification: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onDismiss: () -> Swift::Void
-  @_Concurrency::MainActor @preconcurrency public init(isLoading: Swift::Bool = false, onStartVerification: @escaping () -> Swift::Void, onDismiss: @escaping () -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public init(isLoading: Swift::Bool = false, isDevelopment: Swift::Bool = false, onStartVerification: @escaping () -> Swift::Void, onDismiss: @escaping () -> Swift::Void)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
@@ -671,14 +799,19 @@ public struct BitmapUtils {
   public static func toBase64JpegDataUrl(image: UIKit::UIImage, targetSize: CoreFoundation::CGFloat = 600, quality: CoreFoundation::CGFloat = 0.90, faceCenterYNormalized: CoreFoundation::CGFloat? = nil) -> Swift::String?
 }
 final public class IdentityRepository : Swift::Sendable {
-  public init(environment: approval_ios::ApprovalEnv = .sandbox)
+  public init(environment: approval_ios::ApprovalEnv = .production)
   final public func validatePublicKey(publicKey: Swift::String) async -> Swift::Result<approval_ios::ValidKeyData, any Swift::Error>
-  final public func createSession(publicKey: Swift::String, sessionId: Swift::String) async -> Swift::Result<approval_ios::SessionCreatedData, any Swift::Error>
   final public func verifyBvn(secretKey: Swift::String, bvn: Swift::String) async -> Swift::Result<approval_ios::BvnDetails, any Swift::Error>
+  final public func verifyNin(secretKey: Swift::String, nin: Swift::String) async -> Swift::Result<approval_ios::NinDetails, any Swift::Error>
+  final public func updateSession(sessionId: Swift::String, secretKey: Swift::String, bvn: Swift::String? = nil, nin: Swift::String? = nil, status: approval_ios::SessionStatus? = nil, service: approval_ios::SessionService? = nil) async -> Swift::Result<Swift::Void, any Swift::Error>
   final public func updateSessionWithBvn(sessionId: Swift::String, secretKey: Swift::String, bvn: Swift::String? = nil, status: approval_ios::SessionStatus? = nil, service: approval_ios::SessionService? = nil) async -> Swift::Result<Swift::Void, any Swift::Error>
-  final public func verifyChallenge(accessToken: Swift::String, bvnImage: Swift::String, step: Swift::String, sessionId: Swift::String, frame: Swift::String, restart: Swift::Bool = false) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>
+  final public func verifyChallenge(accessToken: Swift::String, bvnImage: Swift::String, step: Swift::String, sessionId: Swift::String, frame: Swift::String, restart: Swift::Bool = false, idType: Swift::String? = nil, environment: Swift::String? = nil) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>
   final public func checkLivenessHealth() async -> Swift::Result<Swift::Bool, any Swift::Error>
   final public func getSessionBvnData(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::BvnDetails, any Swift::Error>
+  final public func getSessionNinData(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::NinDetails, any Swift::Error>
+  final public func getWidgetSession(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::SessionCreatedData, any Swift::Error>
+  public static func extractErrorMessage(from error: any Swift::Error, fallback: Swift::String = "Request failed") -> Swift::String
+  public static func extractJsonErrorMessage(from jsonString: Swift::String?) -> Swift::String?
   @objc deinit
 }
 public struct AnyCodable : Swift::Codable, Swift::Sendable {
@@ -692,14 +825,18 @@ public struct IdentitySessionContext : Swift::Sendable {
   public var sessionId: Swift::String
   public var businessName: Swift::String
   public var bvnDetails: approval_ios::BvnDetails?
-  public init(publicKey: Swift::String = "", secretKey: Swift::String = "", sessionId: Swift::String = "", businessName: Swift::String = "", bvnDetails: approval_ios::BvnDetails? = nil)
+  public var ninDetails: approval_ios::NinDetails?
+  public var services: approval_ios::Services?
+  public var selectedIdType: Swift::String
+  public init(publicKey: Swift::String = "", secretKey: Swift::String = "", sessionId: Swift::String = "", businessName: Swift::String = "", bvnDetails: approval_ios::BvnDetails? = nil, ninDetails: approval_ios::NinDetails? = nil, services: approval_ios::Services? = nil, selectedIdType: Swift::String = "BVN")
 }
 @_Concurrency::MainActor @preconcurrency public struct LivelinessCameraScreen : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let networkQuality: approval_ios::NetworkQuality
   @_Concurrency::MainActor @preconcurrency public let onDismiss: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onStepCapture: (@Sendable (approval_ios::FaceChallengeCapture) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>)?
   @_Concurrency::MainActor @preconcurrency public let onVerificationComplete: (Swift::Bool) -> Swift::Void
-  @_Concurrency::MainActor @preconcurrency public init(networkQuality: approval_ios::NetworkQuality = .excellent, onDismiss: @escaping () -> Swift::Void, onStepCapture: (@Sendable (approval_ios::FaceChallengeCapture) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>)? = nil, onVerificationComplete: @escaping (Swift::Bool) -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public init(networkQuality: approval_ios::NetworkQuality = .excellent, isDevelopment: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onStepCapture: (@Sendable (approval_ios::FaceChallengeCapture) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>)? = nil, onVerificationComplete: @escaping (Swift::Bool) -> Swift::Void)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
@@ -709,7 +846,8 @@ public struct IdentitySessionContext : Swift::Sendable {
   @_Concurrency::MainActor @preconcurrency public let onDismiss: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public let onProceed: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public var isLoading: Swift::Bool
-  @_Concurrency::MainActor @preconcurrency public init(isLoading: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onProceed: @escaping () -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public init(isLoading: Swift::Bool = false, isDevelopment: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onProceed: @escaping () -> Swift::Void)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
@@ -720,11 +858,60 @@ public struct IdentitySessionContext : Swift::Sendable {
   @_Concurrency::MainActor @preconcurrency public let onTryAgain: () -> Swift::Void
   @_Concurrency::MainActor @preconcurrency public var reason: Swift::String
   @_Concurrency::MainActor @preconcurrency public var isLoading: Swift::Bool
-  @_Concurrency::MainActor @preconcurrency public init(reason: Swift::String = "No obstructions: remove hats,\nglasses and masks", isLoading: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onTryAgain: @escaping () -> Swift::Void)
+  @_Concurrency::MainActor @preconcurrency public var isDevelopment: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency public init(reason: Swift::String = "No obstructions: remove hats,\nglasses and masks", isLoading: Swift::Bool = false, isDevelopment: Swift::Bool = false, onDismiss: @escaping () -> Swift::Void, onTryAgain: @escaping () -> Swift::Void)
   @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
     get
   }
   public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios17SelfieRetryScreenV4bodyQrvp", 0) __
+}
+@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+public class accessory_classifierInput : CoreML::MLFeatureProvider {
+  public var image: CoreVideo::CVPixelBuffer
+  @objc public var featureNames: Swift::Set<Swift::String> {
+    @objc get
+  }
+  @objc public func featureValue(for featureName: Swift::String) -> CoreML::MLFeatureValue?
+  public init(image: CoreVideo::CVPixelBuffer)
+  convenience public init(imageWith image: CoreGraphics::CGImage) throws
+  convenience public init(imageAt image: Foundation::URL) throws
+  public func setImage(with image: CoreGraphics::CGImage) throws
+  public func setImage(with image: Foundation::URL) throws
+  @objc deinit
+}
+@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+public class accessory_classifierOutput : CoreML::MLFeatureProvider {
+  public var Identity: CoreML::MLMultiArray {
+    get
+  }
+  public var IdentityShapedArray: CoreML::MLShapedArray<Swift::Float> {
+    get
+  }
+  @objc public var featureNames: Swift::Set<Swift::String> {
+    @objc get
+  }
+  @objc public func featureValue(for featureName: Swift::String) -> CoreML::MLFeatureValue?
+  public init(Identity: CoreML::MLMultiArray)
+  public init(features: any CoreML::MLFeatureProvider)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
+public class accessory_classifier {
+  final public let model: CoreML::MLModel
+  convenience public init(configuration: CoreML::MLModelConfiguration = MLModelConfiguration()) throws
+  convenience public init(contentsOf modelURL: Foundation::URL) throws
+  convenience public init(contentsOf modelURL: Foundation::URL, configuration: CoreML::MLModelConfiguration) throws
+  public class func load(configuration: CoreML::MLModelConfiguration = MLModelConfiguration(), completionHandler handler: @escaping (Swift::Result<approval_ios::accessory_classifier, any Swift::Error>) -> Swift::Void)
+  public class func load(configuration: CoreML::MLModelConfiguration = MLModelConfiguration()) async throws -> approval_ios::accessory_classifier
+  public class func load(contentsOf modelURL: Foundation::URL, configuration: CoreML::MLModelConfiguration = MLModelConfiguration(), completionHandler handler: @escaping (Swift::Result<approval_ios::accessory_classifier, any Swift::Error>) -> Swift::Void)
+  public class func load(contentsOf modelURL: Foundation::URL, configuration: CoreML::MLModelConfiguration = MLModelConfiguration()) async throws -> approval_ios::accessory_classifier
+  public func prediction(input: approval_ios::accessory_classifierInput) throws -> approval_ios::accessory_classifierOutput
+  public func prediction(input: approval_ios::accessory_classifierInput, options: CoreML::MLPredictionOptions) throws -> approval_ios::accessory_classifierOutput
+  @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *)
+  public func prediction(input: approval_ios::accessory_classifierInput, options: CoreML::MLPredictionOptions = MLPredictionOptions()) async throws -> approval_ios::accessory_classifierOutput
+  public func prediction(image: CoreVideo::CVPixelBuffer) throws -> approval_ios::accessory_classifierOutput
+  public func predictions(inputs: [approval_ios::accessory_classifierInput], options: CoreML::MLPredictionOptions = MLPredictionOptions()) throws -> [approval_ios::accessory_classifierOutput]
+  @objc deinit
 }
 extension approval_ios::ApprovalView : Swift::Sendable {}
 extension approval_ios::CreditChekApproval : Swift::Sendable {}
@@ -743,6 +930,7 @@ extension approval_ios::ApprovalModule : Swift::RawRepresentable {}
 extension approval_ios::ApprovalButton : Swift::Sendable {}
 extension approval_ios::ApprovalInputField : Swift::Sendable {}
 extension approval_ios::DashedBorderCard : Swift::Sendable {}
+extension approval_ios::DevelopmentDecoration : Swift::Sendable {}
 extension approval_ios::ToastState : Swift::Sendable {}
 extension approval_ios::IdentityToastHost : Swift::Sendable {}
 extension approval_ios::PoweredByCreditChek : Swift::Sendable {}
@@ -764,7 +952,12 @@ extension approval_ios::NetworkSignalBars : Swift::Sendable {}
 extension approval_ios::FaceOvalBorder : Swift::Sendable {}
 extension approval_ios::ApprovalErrorScreen : Swift::Sendable {}
 extension approval_ios::BvnCheckScreen : Swift::Sendable {}
+extension approval_ios::NinCheckScreen : Swift::Sendable {}
 extension approval_ios::SplashScreen : Swift::Sendable {}
+extension approval_ios::VerificationDocument : Swift::Equatable {}
+extension approval_ios::VerificationDocument : Swift::Hashable {}
+extension approval_ios::VerificationDocument : Swift::RawRepresentable {}
+extension approval_ios::VerificationMethodScreen : Swift::Sendable {}
 extension approval_ios::VerificationProcessingScreen : Swift::Sendable {}
 extension approval_ios::VerificationSuccessScreen : Swift::Sendable {}
 extension approval_ios::WelcomeScreen : Swift::Sendable {}
