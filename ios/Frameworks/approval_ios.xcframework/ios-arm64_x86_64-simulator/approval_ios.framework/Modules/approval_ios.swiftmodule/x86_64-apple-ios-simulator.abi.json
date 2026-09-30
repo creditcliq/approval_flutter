@@ -3977,8 +3977,7 @@
             "declAttributes": [
               "HasInitialValue",
               "HasStorage",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "isLet": true,
             "hasStorage": true,
@@ -35952,98 +35951,98 @@
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 430,
+      "offset": 355,
       "length": 35,
-      "value": "\"https:\/\/dev.creditchek.africa\/v1\/\""
+      "value": "\"https:\/\/api.creditchek.africa\/v1\/\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 526,
+      "offset": 451,
       "length": 26,
       "value": "\"auth\/validate\/public-key\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 597,
+      "offset": 522,
       "length": 28,
       "value": "\"auth\/widget-session\/create\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 664,
+      "offset": 589,
       "length": 21,
       "value": "\"auth\/widget-session\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 725,
+      "offset": 650,
       "length": 30,
       "value": "\"auth\/widget-session\/bvn-data\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 795,
+      "offset": 720,
       "length": 30,
       "value": "\"auth\/widget-session\/nin-data\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 869,
+      "offset": 794,
       "length": 21,
       "value": "\"identity\/verifyData\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 930,
+      "offset": 855,
       "length": 17,
       "value": "\"liveness\/health\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 996,
+      "offset": 921,
       "length": 27,
       "value": "\"liveness\/verify-challenge\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1153,
+      "offset": 1078,
       "length": 20,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1171,
+      "offset": 1096,
       "length": 1,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 1251,
+      "offset": 1176,
       "length": 4,
       "value": "15.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 1313,
+      "offset": 1238,
       "length": 4,
       "value": "60.0"
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 1376,
+      "offset": 1301,
       "length": 4,
       "value": "20.0"
     },

@@ -69,9 +69,9 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
 
     try {
       final config = ApprovalConfig(
-        publicKey: apiKey,
-        sessionId: sessionId,
-        environment: _selectedEnvironment,
+        publicKey: "your-api-key",
+        sessionId: "your-session-id",
+        environment: ApprovalEnvironment.production,
         modules: const [ApprovalModule.identity, ApprovalModule.liveliness],
       );
 
