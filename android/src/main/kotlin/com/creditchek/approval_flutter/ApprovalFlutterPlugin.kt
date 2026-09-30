@@ -64,11 +64,11 @@ class ApprovalFlutterPlugin :
                     return
                 }
                 // 2. Extract Environment
-                val envString = call.argument<String>("environment") ?: "SANDBOX"
+                val envString = call.argument<String>("environment") ?: "DEVELOPMENT"
                 val environment = if (envString.equals("PRODUCTION", ignoreCase = true)) {
                     ApprovalEnv.PRODUCTION
                 } else {
-                    ApprovalEnv.SANDBOX
+                    ApprovalEnv.DEVELOPMENT
                 }
                 // 3. Extract Optional User Pre-fill Data
                 val userMap = call.argument<Map<String, Any?>>("userData")

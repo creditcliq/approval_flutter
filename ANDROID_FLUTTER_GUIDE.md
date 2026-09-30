@@ -149,7 +149,7 @@ repositories {
 ```
 In `approval_flutter/android/build.gradle.kts`:
 ```kotlin
-implementation("com.github.creditcliq:approval_android:1.0.1-SNAPSHOT")
+implementation("com.github.creditcliq:approval_android:1.0.2-SNAPSHOT")
 ```
 Gradle automatically checks for updated snapshots.
 

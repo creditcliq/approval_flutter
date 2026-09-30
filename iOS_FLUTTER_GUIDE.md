@@ -148,8 +148,8 @@ public class ApprovalFlutterPlugin: NSObject, FlutterPlugin {
         return
       }
 
-      let envString = (args["environment"] as? String ?? "SANDBOX").uppercased()
-      let environment: ApprovalEnv = (envString == "PRODUCTION") ? .production : .sandbox
+      let envString = (args["environment"] as? String ?? "DEVELOPMENT").uppercased()
+      let environment: ApprovalEnv = (envString == "PRODUCTION") ? .production : .development
 
       var userData: AUserData? = nil
       if let userDict = args["userData"] as? [String: Any] {
@@ -157,6 +157,7 @@ public class ApprovalFlutterPlugin: NSObject, FlutterPlugin {
           firstName: userDict["firstName"] as? String ?? "",
           lastName: userDict["lastName"] as? String ?? "",
           bvn: userDict["bvn"] as? String ?? "",
+          nin: userDict["nin"] as? String ?? "",
           email: userDict["email"] as? String ?? "",
           dateOfBirth: (userDict["dob"] as? String) ?? (userDict["dateOfBirth"] as? String),
           phone: userDict["phone"] as? String

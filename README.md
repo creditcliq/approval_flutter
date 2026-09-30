@@ -141,7 +141,7 @@ platform :ios, '15.0'
 ## 💻 Flutter Usage Example
 
 > [!IMPORTANT]
-> **Prerequisite**: Generate a `sessionId` on your server first by calling CreditChek's Widget Session API (`POST /v1/auth/widget-session/create`). Pass that `sessionId` into `ApprovalConfig`.
+> **Prerequisite**: Generate a `sessionId` on your server first by calling CreditChek's Widget Session API (`POST https://api.creditchek.africa/v1/auth/widget-session/create`). Pass that `sessionId` into `ApprovalConfig`.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -151,13 +151,14 @@ Future<void> launchCreditChekVerification(BuildContext context, String backendSe
   final config = ApprovalConfig(
     publicKey: 'YOUR_CREDITCHEK_PUBLIC_KEY',
     sessionId: backendSessionId, // Obtained from your backend
-    environment: ApprovalEnvironment.sandbox, // or ApprovalEnvironment.production
+    environment: ApprovalEnvironment.development, // or ApprovalEnvironment.production
     modules: const [ApprovalModule.identity, ApprovalModule.liveliness],
     userData: const AUserData(
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
       bvn: '12345678901', // Optional prefill
+      nin: '12345678901', // Optional prefill
       phone: '+2348012345678', // Optional prefill
     ),
   );

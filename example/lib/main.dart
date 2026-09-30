@@ -34,7 +34,7 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
 
   final TextEditingController _sessionIdController = TextEditingController();
 
-  ApprovalEnvironment _selectedEnvironment = ApprovalEnvironment.sandbox;
+  ApprovalEnvironment _selectedEnvironment = ApprovalEnvironment.development;
   String _statusMessage = 'Ready to verify';
   Color _statusColor = Colors.grey.shade700;
   String? _lastSessionId;
@@ -195,8 +195,8 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                     children: [
                       Expanded(
                         child: RadioListTile<ApprovalEnvironment>(
-                          title: const Text('Sandbox'),
-                          value: ApprovalEnvironment.sandbox,
+                          title: const Text('Development'),
+                          value: ApprovalEnvironment.development,
                           groupValue: _selectedEnvironment,
                           onChanged: (val) {
                             if (val != null)

@@ -5,7 +5,6 @@
 @preconcurrency import AVFoundation
 import Combine
 import CoreImage
-@preconcurrency import CoreML
 @preconcurrency import CoreTelephony
 import DeveloperToolsSupport
 import Foundation
@@ -20,7 +19,6 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-import os
 @_Concurrency::MainActor @preconcurrency public struct ApprovalView : SwiftUICore::View {
   @_Concurrency::MainActor @preconcurrency public let config: approval_ios::ApprovalConfig
   @_Concurrency::MainActor @preconcurrency public let onFinishWithResult: (approval_ios::SessionResult) -> Swift::Void
@@ -32,20 +30,6 @@ import os
 }
 @_hasMissingDesignatedInitializers @_Concurrency::MainActor final public class CreditChekApproval {
   @_Concurrency::MainActor public static func start(from presenter: UIKit::UIViewController? = nil, config: approval_ios::ApprovalConfig, onResult: @escaping (approval_ios::SessionResult) -> Swift::Void)
-  @objc deinit
-}
-public struct AccessoryClassificationResult : Swift::Sendable {
-  public let hasGlasses: Swift::Bool
-  public let hasHeadwear: Swift::Bool
-  public let glassesConfidence: Swift::Float
-  public let headwearConfidence: Swift::Float
-  public init(hasGlasses: Swift::Bool, hasHeadwear: Swift::Bool, glassesConfidence: Swift::Float, headwearConfidence: Swift::Float)
-}
-final public class AccessoryClassifierEngine : @unchecked Swift::Sendable {
-  public init()
-  final public func classify(pixelBuffer: CoreVideo::CVPixelBuffer) -> approval_ios::AccessoryClassificationResult?
-  final public func resetState()
-  final public func close()
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @_Concurrency::MainActor final public class ApprovalTtsEngine : ObjectiveC::NSObject, Combine::ObservableObject, AVFAudio::AVSpeechSynthesizerDelegate {
@@ -63,8 +47,6 @@ public struct LivelinessState : Swift::Sendable {
   public var isLowLight: Swift::Bool
   public var isTooClose: Swift::Bool
   public var isTooFar: Swift::Bool
-  public var hasGlasses: Swift::Bool
-  public var hasHeadwear: Swift::Bool
   public var currentStepIndex: Swift::Int
   public var currentStep: approval_ios::FaceVerificationStep
   public var totalSteps: Swift::Int
@@ -217,9 +199,9 @@ public struct ApprovalConfig : Swift::Codable {
   public let publicKey: Swift::String
   public let modules: [approval_ios::ApprovalModule]
   public let userData: approval_ios::AUserData?
-  public let sessionId: Swift::String
+  public let sessionId: Swift::String?
   public let environment: approval_ios::ApprovalEnv
-  public init(publicKey: Swift::String, modules: [approval_ios::ApprovalModule] = [], userData: approval_ios::AUserData? = nil, sessionId: Swift::String, environment: approval_ios::ApprovalEnv = .sandbox)
+  public init(publicKey: Swift::String, modules: [approval_ios::ApprovalModule] = [], userData: approval_ios::AUserData? = nil, sessionId: Swift::String? = nil, environment: approval_ios::ApprovalEnv = .sandbox)
   public func validate() throws
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
@@ -518,21 +500,8 @@ public struct SessionCreatedResponse : Swift::Codable {
 public struct SessionCreatedData : Swift::Codable {
   public let publicKey: Swift::String
   public let sessionId: Swift::String
-  public let status: Swift::String
-  public let services: approval_ios::Services
   public let id: Swift::String
   public let expiresAt: Swift::String?
-  public func encode(to encoder: any Swift::Encoder) throws
-  public init(from decoder: any Swift::Decoder) throws
-}
-public struct Services : Swift::Codable {
-  public let bvn: approval_ios::ServiceStatus
-  public let liveness: approval_ios::ServiceStatus
-  public func encode(to encoder: any Swift::Encoder) throws
-  public init(from decoder: any Swift::Decoder) throws
-}
-public struct ServiceStatus : Swift::Codable {
-  public let status: approval_ios::Status
   public func encode(to encoder: any Swift::Encoder) throws
   public init(from decoder: any Swift::Decoder) throws
 }
@@ -704,14 +673,12 @@ public struct BitmapUtils {
 final public class IdentityRepository : Swift::Sendable {
   public init(environment: approval_ios::ApprovalEnv = .sandbox)
   final public func validatePublicKey(publicKey: Swift::String) async -> Swift::Result<approval_ios::ValidKeyData, any Swift::Error>
+  final public func createSession(publicKey: Swift::String, sessionId: Swift::String) async -> Swift::Result<approval_ios::SessionCreatedData, any Swift::Error>
   final public func verifyBvn(secretKey: Swift::String, bvn: Swift::String) async -> Swift::Result<approval_ios::BvnDetails, any Swift::Error>
   final public func updateSessionWithBvn(sessionId: Swift::String, secretKey: Swift::String, bvn: Swift::String? = nil, status: approval_ios::SessionStatus? = nil, service: approval_ios::SessionService? = nil) async -> Swift::Result<Swift::Void, any Swift::Error>
   final public func verifyChallenge(accessToken: Swift::String, bvnImage: Swift::String, step: Swift::String, sessionId: Swift::String, frame: Swift::String, restart: Swift::Bool = false) async -> Swift::Result<approval_ios::ValidationData, any Swift::Error>
   final public func checkLivenessHealth() async -> Swift::Result<Swift::Bool, any Swift::Error>
   final public func getSessionBvnData(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::BvnDetails, any Swift::Error>
-  final public func getWidgetSession(sessionId: Swift::String, secretKey: Swift::String) async -> Swift::Result<approval_ios::SessionCreatedData, any Swift::Error>
-  public static func extractErrorMessage(from error: any Swift::Error, fallback: Swift::String = "Request failed") -> Swift::String
-  public static func extractJsonErrorMessage(from jsonString: Swift::String?) -> Swift::String?
   @objc deinit
 }
 public struct AnyCodable : Swift::Codable, Swift::Sendable {
@@ -758,54 +725,6 @@ public struct IdentitySessionContext : Swift::Sendable {
     get
   }
   public typealias Body = @_opaqueReturnTypeOf("$s12approval_ios17SelfieRetryScreenV4bodyQrvp", 0) __
-}
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
-public class accessory_classifierInput : CoreML::MLFeatureProvider {
-  public var image: CoreVideo::CVPixelBuffer
-  @objc public var featureNames: Swift::Set<Swift::String> {
-    @objc get
-  }
-  @objc public func featureValue(for featureName: Swift::String) -> CoreML::MLFeatureValue?
-  public init(image: CoreVideo::CVPixelBuffer)
-  convenience public init(imageWith image: CoreGraphics::CGImage) throws
-  convenience public init(imageAt image: Foundation::URL) throws
-  public func setImage(with image: CoreGraphics::CGImage) throws
-  public func setImage(with image: Foundation::URL) throws
-  @objc deinit
-}
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
-public class accessory_classifierOutput : CoreML::MLFeatureProvider {
-  public var Identity: CoreML::MLMultiArray {
-    get
-  }
-  public var IdentityShapedArray: CoreML::MLShapedArray<Swift::Float> {
-    get
-  }
-  @objc public var featureNames: Swift::Set<Swift::String> {
-    @objc get
-  }
-  @objc public func featureValue(for featureName: Swift::String) -> CoreML::MLFeatureValue?
-  public init(Identity: CoreML::MLMultiArray)
-  public init(features: any CoreML::MLFeatureProvider)
-  @objc deinit
-}
-@_hasMissingDesignatedInitializers @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
-public class accessory_classifier {
-  final public let model: CoreML::MLModel
-  convenience public init(configuration: CoreML::MLModelConfiguration = MLModelConfiguration()) throws
-  convenience public init(contentsOf modelURL: Foundation::URL) throws
-  convenience public init(contentsOf modelURL: Foundation::URL, configuration: CoreML::MLModelConfiguration) throws
-  public class func load(configuration: CoreML::MLModelConfiguration = MLModelConfiguration(), completionHandler handler: @escaping (Swift::Result<approval_ios::accessory_classifier, any Swift::Error>) -> Swift::Void)
-  public class func load(configuration: CoreML::MLModelConfiguration = MLModelConfiguration()) async throws -> approval_ios::accessory_classifier
-  public class func load(contentsOf modelURL: Foundation::URL, configuration: CoreML::MLModelConfiguration = MLModelConfiguration(), completionHandler handler: @escaping (Swift::Result<approval_ios::accessory_classifier, any Swift::Error>) -> Swift::Void)
-  public class func load(contentsOf modelURL: Foundation::URL, configuration: CoreML::MLModelConfiguration = MLModelConfiguration()) async throws -> approval_ios::accessory_classifier
-  public func prediction(input: approval_ios::accessory_classifierInput) throws -> approval_ios::accessory_classifierOutput
-  public func prediction(input: approval_ios::accessory_classifierInput, options: CoreML::MLPredictionOptions) throws -> approval_ios::accessory_classifierOutput
-  @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *)
-  public func prediction(input: approval_ios::accessory_classifierInput, options: CoreML::MLPredictionOptions = MLPredictionOptions()) async throws -> approval_ios::accessory_classifierOutput
-  public func prediction(image: CoreVideo::CVPixelBuffer) throws -> approval_ios::accessory_classifierOutput
-  public func predictions(inputs: [approval_ios::accessory_classifierInput], options: CoreML::MLPredictionOptions = MLPredictionOptions()) throws -> [approval_ios::accessory_classifierOutput]
-  @objc deinit
 }
 extension approval_ios::ApprovalView : Swift::Sendable {}
 extension approval_ios::CreditChekApproval : Swift::Sendable {}

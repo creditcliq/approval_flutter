@@ -1,7 +1,7 @@
 import 'user_data.dart';
 
 /// Target environment for the verification API
-enum ApprovalEnvironment { sandbox, production }
+enum ApprovalEnvironment { development, production }
 
 /// Verification modules supported by CreditChek Approval
 enum ApprovalModule { identity, liveliness, income, recova, credit }
@@ -10,7 +10,7 @@ class ApprovalConfig {
   /// Your CreditChek public API key
   final String publicKey;
 
-  /// Environment mode (defaults to [ApprovalEnvironment.sandbox])
+  /// Environment mode (defaults to [ApprovalEnvironment.development])
   final ApprovalEnvironment environment;
 
   /// List of verification modules (defaults to `[ApprovalModule.identity]`)
@@ -25,7 +25,7 @@ class ApprovalConfig {
   const ApprovalConfig({
     required this.publicKey,
     required this.sessionId,
-    this.environment = ApprovalEnvironment.sandbox,
+    this.environment = ApprovalEnvironment.development,
     this.modules = const [ApprovalModule.identity],
     this.userData,
   });
@@ -35,7 +35,7 @@ class ApprovalConfig {
       'publicKey': publicKey,
       'environment': environment == ApprovalEnvironment.production
           ? 'PRODUCTION'
-          : 'SANDBOX',
+          : 'DEVELOPMENT',
       'modules': modules.map((m) => m.name.toUpperCase()).toList(),
       'userData': userData?.toMap(),
       'sessionId': sessionId,

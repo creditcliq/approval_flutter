@@ -22,8 +22,8 @@ public class ApprovalFlutterPlugin: NSObject, FlutterPlugin {
         return
       }
 
-      let envString = (args["environment"] as? String ?? "SANDBOX").uppercased()
-      let environment: ApprovalEnv = (envString == "PRODUCTION") ? .production : .sandbox
+      let envString = (args["environment"] as? String ?? "DEVELOPMENT").uppercased()
+      let environment: ApprovalEnv = (envString == "PRODUCTION") ? .production : .development
 
       // Parse user data if present
       var userData: AUserData? = nil
