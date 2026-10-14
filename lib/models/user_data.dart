@@ -8,6 +8,9 @@ class AUserData {
   /// 11-digit Bank Verification Number (BVN)
   final String? bvn;
 
+  /// 11-digit National Identity Number (NIN)
+  final String? nin;
+
   /// Email address
   final String? email;
 
@@ -21,19 +24,24 @@ class AUserData {
     this.firstName,
     this.lastName,
     this.bvn,
+    this.nin,
     this.email,
     this.dob,
     this.phone,
   });
 
   Map<String, dynamic> toMap() {
-    return {
-      'firstName': firstName ?? '',
-      'lastName': lastName ?? '',
-      'bvn': bvn ?? '',
-      'email': email ?? '',
-      'dob': dob,
-      'phone': phone,
-    };
+    final map = <String, dynamic>{};
+    if (firstName != null && firstName!.isNotEmpty) map['firstName'] = firstName;
+    if (lastName != null && lastName!.isNotEmpty) map['lastName'] = lastName;
+    if (bvn != null && bvn!.isNotEmpty) map['bvn'] = bvn;
+    if (nin != null && nin!.isNotEmpty) map['nin'] = nin;
+    if (email != null && email!.isNotEmpty) map['email'] = email;
+    if (dob != null && dob!.isNotEmpty) {
+      map['dob'] = dob;
+      map['dateOfBirth'] = dob;
+    }
+    if (phone != null && phone!.isNotEmpty) map['phone'] = phone;
+    return map;
   }
 }

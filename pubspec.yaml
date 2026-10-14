@@ -1,6 +1,6 @@
 name: approval_flutter
-description: "A new Flutter plugin project."
-version: 0.0.1
+description: "Official Flutter plugin for CreditChek Approval biometric identity and face liveness verification."
+version: 1.0.1
 homepage:
 
 environment:

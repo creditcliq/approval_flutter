@@ -31,10 +31,9 @@ class VerificationHomeScreen extends StatefulWidget {
 
 class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
   final TextEditingController _apiKeyController = TextEditingController();
-
   final TextEditingController _sessionIdController = TextEditingController();
+  final TextEditingController _widgetIdController = TextEditingController();
 
-  ApprovalEnvironment _selectedEnvironment = ApprovalEnvironment.development;
   String _statusMessage = 'Ready to verify';
   Color _statusColor = Colors.grey.shade700;
   String? _lastSessionId;
@@ -61,6 +60,16 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
       return;
     }
 
+    final widgetId = _widgetIdController.text.trim();
+    if (widgetId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter your widget ID from the dashboard'),
+        ),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _statusMessage = 'Launching verification...';
@@ -69,10 +78,9 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
 
     try {
       final config = ApprovalConfig(
-        publicKey: "your-api-key",
-        sessionId: "your-session-id",
-        environment: ApprovalEnvironment.production,
-        modules: const [ApprovalModule.identity, ApprovalModule.liveliness],
+        publicKey: apiKey,
+        sessionId: sessionId,
+        widgetId: widgetId,
       );
 
       final result = await ApprovalFlutter.start(config: config);
@@ -148,7 +156,7 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Test the CreditChek active face liveness and BVN verification module.',
+                    'Backend-driven orchestration automatically fetches environment, branding, and verification modules from your widget configuration.',
                     style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                   ),
                 ],
@@ -175,7 +183,7 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                   TextField(
                     controller: _apiKeyController,
                     decoration: const InputDecoration(
-                      labelText: 'Public Key',
+                      labelText: 'Public Key *',
                       hintText: 'Enter your CreditChek public key',
                       border: OutlineInputBorder(),
                     ),
@@ -184,38 +192,19 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                   TextField(
                     controller: _sessionIdController,
                     decoration: const InputDecoration(
-                      labelText: 'Session ID',
+                      labelText: 'Session ID *',
                       hintText: 'Enter session UUID created by your backend',
                       border: OutlineInputBorder(),
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Environment:'),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: RadioListTile<ApprovalEnvironment>(
-                          title: const Text('Development'),
-                          value: ApprovalEnvironment.development,
-                          groupValue: _selectedEnvironment,
-                          onChanged: (val) {
-                            if (val != null)
-                              setState(() => _selectedEnvironment = val);
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: RadioListTile<ApprovalEnvironment>(
-                          title: const Text('Production'),
-                          value: ApprovalEnvironment.production,
-                          groupValue: _selectedEnvironment,
-                          onChanged: (val) {
-                            if (val != null)
-                              setState(() => _selectedEnvironment = val);
-                          },
-                        ),
-                      ),
-                    ],
+                  TextField(
+                    controller: _widgetIdController,
+                    decoration: const InputDecoration(
+                      labelText: 'Widget ID *',
+                      hintText: 'Enter widget ID from CreditChek dashboard',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ],
               ),
@@ -230,7 +219,9 @@ class _VerificationHomeScreenState extends State<VerificationHomeScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF064BEF),
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)

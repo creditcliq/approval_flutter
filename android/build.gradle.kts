@@ -64,8 +64,7 @@ kotlin { compilerOptions { jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 dependencies {
     // 1. CreditChek Approval Android Native SDK
-    // If pulling from JitPack release or mavenLocal:
-    implementation("com.github.creditcliq:approval_android:1.0.3")
+    implementation("com.github.creditcliq:approval_android:1.0.5")
     // Note: If linking locally across projects in settings.gradle, you can use:
     //     implementation(project(":approval_android"))
 

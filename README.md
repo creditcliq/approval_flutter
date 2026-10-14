@@ -77,8 +77,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
-        // For local development with publishToMavenLocal():
-        // mavenLocal()
     }
 }
 ```
@@ -141,18 +139,25 @@ platform :ios, '15.0'
 ## 💻 Flutter Usage Example
 
 > [!IMPORTANT]
-> **Prerequisite**: Generate a `sessionId` on your server first by calling CreditChek's Widget Session API (`POST https://api.creditchek.africa/v1/auth/widget-session/create`). Pass that `sessionId` into `ApprovalConfig`.
+> **Prerequisites**:
+> 1. Obtain your **`widgetId`** and **`publicKey`** from the [CreditChek Dashboard](https://app.creditchek.africa).
+> 2. Generate a **`sessionId`** on your server by calling CreditChek's Widget Session API (`POST https://api.creditchek.africa/v1/auth/widget-session/create`). Pass `sessionId` and `widgetId` into `ApprovalConfig`.
+> 
+> *Environment, module execution order, theme color, and brand logo are resolved dynamically from your widget configuration.*
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:approval_flutter/approval_flutter.dart';
 
-Future<void> launchCreditChekVerification(BuildContext context, String backendSessionId) async {
+Future<void> launchCreditChekVerification({
+  required BuildContext context,
+  required String backendSessionId,
+  required String widgetId,
+}) async {
   final config = ApprovalConfig(
     publicKey: 'YOUR_CREDITCHEK_PUBLIC_KEY',
     sessionId: backendSessionId, // Obtained from your backend
-    environment: ApprovalEnvironment.development, // or ApprovalEnvironment.production
-    modules: const [ApprovalModule.identity, ApprovalModule.liveliness],
+    widgetId: widgetId,          // From CreditChek Dashboard
     userData: const AUserData(
       firstName: 'John',
       lastName: 'Doe',
