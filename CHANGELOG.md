@@ -1,3 +1,9 @@
+## 1.0.2
+
+* Updated production base URL to `https://api.creditchek.africa/v1/`.
+* Updated native Android dependency to `1.0.6` (via JitPack).
+* Updated native iOS XCFramework with production base URL.
+
 ## 1.0.1
 
 * Dynamic backend-driven configuration via `widgetId`.

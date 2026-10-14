@@ -74,7 +74,7 @@ Starting with the latest architectural update:
 ## 4. GitHub & JitPack Release Workflow
 
 ### A. Version Bumping in `build.gradle.kts`
-In `approval_android/approval_android/build.gradle.kts`, increment the release version number (e.g. `1.0.5`):
+In `approval_android/approval_android/build.gradle.kts`, increment the release version number (e.g. `1.0.6`):
 
 ```kotlin
 afterEvaluate {
@@ -84,7 +84,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.creditcliq"
                 artifactId = "approval_android"
-                version = "1.0.5" // Increment version here
+                version = "1.0.6" // Increment version here
             }
         }
     }
@@ -109,16 +109,16 @@ Commit changes, push to GitHub, and create a matching Git tag:
 cd /Users/marvel/Documents/flutter/approval/approval_android
 
 git add .
-git commit -m "chore(release): bump version to 1.0.5"
+git commit -m "chore(release): bump version to 1.0.6"
 git push origin main
 
-git tag 1.0.5
-git push origin 1.0.5
+git tag 1.0.6
+git push origin 1.0.6
 ```
 
 ### D. JitPack Verification
 1. Open **[https://jitpack.io/#creditcliq/approval_android](https://jitpack.io/#creditcliq/approval_android)**.
-2. Locate the new tag (e.g. `1.0.5`).
+2. Locate the new tag (e.g. `1.0.6`).
 3. Click **Get it** to trigger the build.
 4. When the log icon turns green, the release is live and downloadable by Gradle worldwide.
 
@@ -138,7 +138,7 @@ allprojects {
 }
 
 dependencies {
-    implementation("com.github.creditcliq:approval_android:1.0.5")
+    implementation("com.github.creditcliq:approval_android:1.0.6")
 }
 ```
 
@@ -227,9 +227,9 @@ final result = await ApprovalFlutter.start(config: config);
 
 ## 8. Troubleshooting & Common Pitfalls
 
-### 1. `Could not find com.github.creditcliq:approval_android:1.0.5`
+### 1. `Could not find com.github.creditcliq:approval_android:1.0.6`
 - **Cause:** JitPack has not finished building the tag yet, or the tag was not pushed.
-- **Fix:** Check `https://jitpack.io/#creditcliq/approval_android/1.0.5` and wait for the green build badge.
+- **Fix:** Check `https://jitpack.io/#creditcliq/approval_android/1.0.6` and wait for the green build badge.
 
 ### 2. Gradle is using an old cached AAR
 - **Cause:** Gradle caches resolved artifacts locally.

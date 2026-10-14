@@ -44188,7 +44188,7 @@
       "kind": "StringLiteral",
       "offset": 355,
       "length": 35,
-      "value": "\"https:\/\/dev.creditchek.africa\/v1\/\""
+      "value": "\"https:\/\/api.creditchek.africa\/v1\/\""
     },
     {
       "filePath": "\/Users\/marvel\/Documents\/flutter\/approval\/approval_ios\/Sources\/approval_ios\/core\/network\/ApiConstants.swift",
