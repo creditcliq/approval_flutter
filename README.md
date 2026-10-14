@@ -10,9 +10,8 @@ Detailed, end-to-end guides for building native libraries, packaging artifacts (
 
 - 🤖 **[Android & Flutter Integration Guide (ANDROID_FLUTTER_GUIDE.md)](./ANDROID_FLUTTER_GUIDE.md)**
   - Building `.aar` via Android Studio & Terminal (`./gradlew :approval_android:assembleRelease`).
-  - Publishing to local Maven (`./gradlew :approval_android:publishToMavenLocal`) with automatic transitive dependency resolution (CameraX, ML Kit, Jetpack Compose, Retrofit).
-  - Composite builds with `includeBuild` for instant zero-build iteration.
-  - Gradle cache busting and continuous testing loop.
+  - Git tag releases published via JitPack (`com.github.creditcliq:approval_android:<version>`) with automatic transitive dependency resolution (CameraX, ML Kit, Jetpack Compose, Retrofit).
+  - Continuous release and verification loop.
 
 - 🍏 **[iOS & Flutter Integration Guide (iOS_FLUTTER_GUIDE.md)](./iOS_FLUTTER_GUIDE.md)**
   - One-time CocoaPods linking via `:path => '../../../approval_ios'`.
